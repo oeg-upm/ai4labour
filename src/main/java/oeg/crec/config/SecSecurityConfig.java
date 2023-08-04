@@ -59,7 +59,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .authorizeRequests()
+           //     .authorizeRequests()
            //     .antMatchers("/**").access("hasIpAddress(\"127.0.0.1\")") //experimental
                 .antMatchers("/**").permitAll()                     //debería ser un *. con ** son carpetas y subcarpetas.
                 .antMatchers("/header.html").permitAll()
