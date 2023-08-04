@@ -37,7 +37,8 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                     String[] parts = user.split("\\s+", 2);
                     String theUsername = parts[0];
                     String password = parts[1];
-                    if (username.equals(theUsername)) {
+                    if(true){
+//                    if (username.equals(theUsername)) {
                         return new User(theUsername, passwordEncoder().encode(password), Collections.singleton(new SimpleGrantedAuthority("USER")));
                     }
                 }
@@ -59,7 +60,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-           //     .authorizeRequests()
+                .authorizeRequests()
            //     .antMatchers("/**").access("hasIpAddress(\"127.0.0.1\")") //experimental
                 .antMatchers("/**").permitAll()                     //debería ser un *. con ** son carpetas y subcarpetas.
                 .antMatchers("/header.html").permitAll()
