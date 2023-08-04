@@ -1,0 +1,105 @@
+{
+  "@context" : {
+    "@base" : "http://linguistic.linkeddata.es/",
+    "@vocab" : "http://linguistic.linkeddata.es/",
+    "skos": "http://www.w3.org/2004/02/skos/core#",  
+    "dc": "http://purl.org/dc/elements/1.1/",        
+    "dcterms": "http://purl.org/dc/terms/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "dc": "http://purl.org/dc/elements/1.1/",
+    "skos-xl":"http://www.w3.org/2008/05/skos-xl#",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "cc":"http://creativecommons.org/ns#",
+    "dbp":"http://dbpedia.org/property/",
+    "ontolex":"http://www.w3.org/ns/lemon/ontolex#",
+    "lexicog":"http://www.w3.org/ns/lemon/lexicog#",
+    "prov":"http://www.w3.org/ns/prov#",
+    "schema":"http://schema.org/",
+    "lexinfo":"http://www.lexinfo.net/ontology/2.0/lexinfo#",
+    "vartrans":"http://www.w3.org/ns/lemon/vartrans#",        
+    "inScheme" : 
+    {   
+      "@id": "skos:inScheme",
+      "@type" : "@id"
+    },
+    "altLabel": {
+      "@id": "skos:altLabel",
+      "@container": "@language"
+    },     
+    "prefLabel" : 
+    {   
+      "@id": "skos:prefLabel",
+      "@container" : "@language"  
+    },
+        "broader": {
+            "@id":"skos:broader",
+            "@type": "@id"
+        },
+        "narrower": {
+            "@id":"skos:narrower",
+            "@type": "@id"
+        },
+        "related": {
+            "@id":"skos:related",
+            "@type": "@id"
+        },
+        "hasTopConcept": {
+            "@id":"skos:hasTopConcept",
+            "@type": "@id"
+        },
+        "topConceptOf": {
+            "@id":"skos:topConceptOf",
+            "@type": "@id"
+        },
+        "definition" : 
+        {   
+          "@id": "skos:definition",
+          "@container" : "@language"  
+        },
+        "description" : 
+        {   
+          "@id": "dc:description",
+          "@container" : "@language"  
+        },
+        "note" : 
+        {   
+          "@id": "skos:note",
+          "@container" : "@language"  
+        },
+        "numElements" : "dbp:numElements",
+        "notation": "skos:notation",
+        "source":"dc:source",
+        "creator":"dc:creator",
+        "modified":"dc:modified",
+        "created":"dc:created",
+        "subject":"dc:subject",
+        "date":"dc:date",
+        "title":"dc:title",
+        "sameAs":"owl:sameAs",
+        "example":"skos:example",
+        "closeMatch":"skos:closeMatch",
+        "exactMatch":"skos:exactMatch",
+        "scopeNote":"skos:scopeNote",
+        "literalForm":"skos-xl:literalForm",
+        "jurisdiction":"cc:jurisdiction",
+        "frequency":"dcterms:Frequency",
+        "lexicalEntry":"ontolex:lexicalEntry",
+        "lexicalSense":"ontolex:lexicalSense",
+        "value":"rdf:value",
+        "label":"rdfs:label",
+        "form":"ontolex:Form",
+        "writtenRep":"ontolex:writtenRep",
+        "synonym":"lexinfo:synonym",
+        "senseRelation":"vartrans:SenseRelation",
+        "translation":"vartrans:translation",
+        "usageExample":"lexicog:usageExample",
+        "isReferenceOf":"ontolex:isReferenceOf",
+        "reference":"ontolex:reference",
+        "isSenseOf":"ontolex:isSenseOf",
+        "sense":"ontolex:sense",
+        "category":"vartrans:category",
+        "relates":"vartrans:relates"
+
+  }
+}

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Termitup testing</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.1.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"  crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.datatables.net/select/1.4.0/css/select.dataTables.min.css">
+
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"  crossorigin="anonymous"></script>        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js" crossorigin="anonymous"></script>        
+
+        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>        
+        <script src="https://cdn.datatables.net/plug-ins/1.11.5/dataRender/ellipsis.js"></script>
+        <script src="https://cdn.datatables.net/select/1.4.0/js/dataTables.select.min.js"></script>
+
+        <style>
+            li {
+                display: inline-block;
+            }        
+            .dataTables_filter {
+                display: none;
+            }
+            .dataTables_length {
+                display: none;
+            }
+/*            table.dataTable tbody th, table.dataTable tbody td {
+                padding: 2px 10px; 
+            }            
+            */
+            .limitado {
+                display:block;
+                width:100%;
+                overflow:scroll;
+            }
+            #idtableterms tr td {
+            line-height: 10px;
+            }         
+            .focusedRow
+            {
+                font-weight: bold;
+                text-shadow: 1px 1px 0px #EEE;
+                color: #111;   
+            }            
+            .active td
+            {
+                background-color:grey !important;
+            }            
+
+        </style>
+    </head>
+    <body onload="inicio()">
+
+
+        <header>
+            <section class="jumbotron text-center" style="padding-top: 20px;padding-bottom:20px;">
+                <div class="container">
+                    <h1 class="jumbotron-heading">Testing <img style="margin-top:-10px;" src="https://termitup.oeg.fi.upm.es/static/images/termitup_logo_oeg_notermita.svg" height="60"></h1>
+
+                    <br/>
+                    <p class="lead text-muted">
+                        This is a simple demonstrator for <a href="https://termiteup.dia.fi.upm.es">Termitup</a>, a tool to extract rich a terminology from a given text. <br/>
+                    <p>
+                        <a href="https://termitup.oeg.fi.upm.es/" class="btn btn-primary my-2">Go to Termitup</a>
+                        <a href="#" class="btn btn-secondary my-2">Read the paper</a>
+                    </p>
+                </div>
+            </section>            
+        </header>
+
+        <main role="main" class="container">
+            <div class="row">
+                <div class="col-5">                
+                    <!--        <label for="idta">Text where I should find terms</label> -->
+                    <b>Document</b><br/>
+                    <textarea id="idta" rows="20" style="width:100%;">Employee shareholders have most of the same employment rights as people who are workers and as people who are employees.They also have the right to collective redundancy consultation and transfer of undertakings (TUPE) - this protects the employee’s terms and conditions when the business is transferred to a new owner. Employee shareholders do not have these rights: protection against unfair dismissal - apart from dismissal on grounds of discrimination and in relation to health and safety statutory redundancy pay the right to request flexible working - except in the 2 weeks after returning from parental leave certain statutory rights to request time off for training Employee shareholders must give 16 weeks’ notice if they want to come back early from: maternity leave additional paternity leave adoption leave Employers can choose more generous employment rights than the statutory ones. Tax relief and obligations Employee shareholders can get tax relief on the first £2,000 of shares they get before 1 December 2016. Employee shareholders must pay tax on buying and selling shares. HM Revenue and Customs (HMRC) has further guidance on tax relief for employee shareholders. Applying for employment shareholder jobs Anyone can apply for an employee shareholder job. People claiming Jobseeker’s Allowance do not have to apply for an employee shareholder job that Jobcentre Plus have told them about. Existing employees do not have to accept a change to an employment contract to become an employee shareholder if they do not want to. Offering employment shareholder status Employers must following certain rules when offering employment shareholder status to their employees. Self-employed and contractor. A person is self-employed if they run their business for themselves and take responsibility for its success or failure. Self-employed workers are not paid through PAYE, and they do not have the rights and responsibilities of an employee. A worker must tell HM Revenue and Customs (HMRC) if they think they have become self-employed. Someone can be both employed and self-employed at the same time, for example if they work for an employer during the day and run their own business in the evenings. Employment rights Employment law does not cover self-employed people in most cases because they are their own boss. If a person is self-employed, they have: protection of their health and safety protection of their rights against discrimination (in some cases) the rights and responsibilities set out by the terms of the contract they have with their client Working out if someone is self-employed HMRC may regard someone as self-employed for tax purposes even if they have a different status in employment law. Employers should check if a worker is self-employed in: tax law - in case the worker is exempt from the employer’s PAYE scheme employment law - in case the worker has employee or worker rights Individuals and their employers may have to pay unpaid tax and penalties, or lose entitlement to benefits, if their employment status is wrong. Checking if they’re self-employed for tax purposes You can check someone’s employment status online to see if a worker should be classed as employed or self-employed. If you cannot check online, contact HMRC. There are special rules for businesses supplying workers, for example an employment agency. Checking their employment rights If someone is self-employed, they do not have the rights and responsibilities of an employee or the rights and responsibilities of a worker.</textarea><br/>     
+                    <a href="javascript:extract();" class="btn btn-secondary btn-sm" role="button" style="margin:5px;" data-toggle="tooltip" data-placement="top" title="Extracts a first list of terms"><span id="idtextinspect2">Extract</span><span id="idspinnerinspect2" class="spinner-border spinner-border-sm" style="display:none;"></span></a>
+                    <select name="lan" id="idlan">
+                        <option value="en">English</option>
+                        <option value="es">Spanish</option>
+                        <option value="de">German</option>
+                        <option value="it">Italian</option>
+                    </select>
+                    <div id="idres"></div>
+                </div>
+                <div class="col-3" > <!-- style="border:1px solid black;" -->                
+                    <b>Terms</b>
+<!--                    <textarea id="idta2" rows="20" style="width:100%;"></textarea><br/>     -->
+
+                    <table id="idtableterms" class="table table-bordered m-0 " style="font-size:1rem;width:100%;"> <!-- table-striped dt-reponsive-->
+                        <thead class="">
+                            <tr>
+                                <th>Term</th>
+                            </tr>
+                        </thead>
+                        <tbody id="idtbody">
+                        </tbody>
+                    </table>      
+
+                    <a href="javascript:refine();" class="btn btn-secondary btn-sm" role="button" style="margin:5px;" data-toggle="tooltip" data-placement="top" title="Refines the list of terms"><span id="idtextrefine">Refine</span><span id="idspinnerrefine" class="spinner-border spinner-border-sm" style="display:none;"></span></a>
+                    
+                    <br/><input type="checkbox" id="idtimex"> Removes temporal expressions
+                    <br/><input type="checkbox" id="idpatterns" checked> Removes patterns
+                    <br/><input type="checkbox" id="idnumbers" checked> Removes numbers
+                    
+                </div>
+                <div class="col-4">                
+                    <b><span id="idselterm"></span></b>
+                    <textarea id="idta3" rows="20" style="width:100%;"></textarea><br/>     
+                    <a href="javascript:enrich();" class="btn btn-secondary btn-sm" role="button" style="margin:5px;" data-toggle="tooltip" data-placement="top" title="Enriches the selected term"><span id="idtextenrich">Enrich</span><span id="idspinnerenrich" class="spinner-border spinner-border-sm" style="display:none;"></span></a>
+                    
+                    <br/><input type="checkbox" id="ideurovoc" checked> Eurovoc                  
+                    <br/><input type="checkbox" id="idiate"> IATE      
+                    <br/><input type="checkbox" id="idwikidata"> Wikidata
+                    <br/><input type="checkbox" id="idunesco"> Unesco
+                    <br/><input type="checkbox" id="idthesoz"> TheSoz (Social Sciences)
+                    <br/><input type="checkbox" id="idilo"> ILO (International Labour Office)
+                    <br/><input type="checkbox" id="idstw"> STW (Thesaurus for Economics)
+                </div>
+            </div>
+            <pre><code id="idjson"></code></pre>
+
+        </main>
+
+        <script>
+
+            var gtable;
+            var gselterm = "";
+            var gterms = new Array();  //arreglo de términos
+            function setTerms(res)
+            {
+                gterms = res;
+                var table = document.getElementById('idtableterms');
+                
+//                var table = $('#idtableterms').DataTable();
+                
+    /*            var table = $('#idtableterms').DataTable({
+                    "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
+                    "iDisplayLength": 10,
+                    "language": {"info": "_START_ to _END_"},
+                    "columns": [null],
+                    "scrollY": '40vh',
+                    "scrollCollapse": true,
+                    "paging": false,
+                    "columnDefs": [{
+                            targets: 0,
+                            render: $.fn.dataTable.render.ellipsis(120, true)
+                        }]
+                });*/
+                gtable.clear().draw();
+                var datos= new Array();
+
+                var tot = res.length;
+                for (var i = 0; i < tot; i++) {
+//                    terms += res[i] + "\n";
+
+                    var dato = new Array(res[i]);
+                    datos.push(dato);
+                }
+                    gtable.rows.add(datos).draw();
+  //              document.getElementById('idta2').value = terms;
+                  addRowHandlers();
+
+            }
+            function inicio()
+            {
+                document.getElementById("idjson").html = "";
+                gtable = $('#idtableterms').DataTable({
+                    "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
+                    "iDisplayLength": 10,
+                    "language": {"info": ""},
+                    "columns": [null],
+                    "scrollY": '45vh',
+                    "scrollCollapse": true,
+                    "paging": false,
+                    "height" : "200px",
+                     "select": {
+                        "style": 'os',
+                        "className": "focusedRow",
+                        "selector": "td:last-child a"
+                    }/*,
+                    "columnDefs": [{
+                            targets: 0,
+                            render: $.fn.dataTable.render.ellipsis(120, true)
+                        }]*/
+                });
+                $('.dataTables_scrollBody').css('height', '450px');
+                gtable.select.info( false);
+                
+/*    $('#idtableterms tbody').on('click', 'tr', function () {
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+        } else {
+            gtable.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+    });        */        
+                
+                gtable.on('click', 'tr', function () {
+                    var data = gtable.row(this).data();
+                    gselterm = data+'';
+                    console.log(gselterm);
+                    document.getElementById("idselterm").innerHTML = gselterm;
+//                    console.log("Tipo: " + typeof gtable.row(this).constructor);
+//                    gtable.draw(); 
+//                    gtable.row(this).toggleClass('selected');
+//                    $(this).select();
+                });
+                gterms.push(" ");
+                setTerms(gterms);
+                /*                
+                 var table = $('#idtableterms').DataTable(
+                 {
+                 data: datos,
+                 "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
+                 "iDisplayLength": 10,
+                 "columns": [null],
+                 "language": {"info": "_START_ to _END_ of _TOTAL_"},
+                 "scrollY":        '50vh',
+                 "scrollCollapse": true,
+                 "paging": false,
+                 "columnDefs": [ {
+                 targets: 2,
+                 render: $.fn.dataTable.render.ellipsis( 120, true )
+                 } ]                            
+                 
+                 }
+                 );      */
+            }
+            
+            //Handler al clickar en la lista de empresas
+            function addRowHandlers() {
+                var table = document.getElementById("idtableterms");
+                var rows = table.getElementsByTagName("tr");
+                for (i = 0; i < rows.length; i++) {
+                    var currentRow = table.rows[i];
+                    var currentRowCell1 = table.rows[i].cells[0];
+                    var createCellHandler = function (row, col) {
+                        return function ()
+                        {
+                            var rows = table.getElementsByTagName("tr");
+                            console.log("clickao");
+                            for (i = 0; i < rows.length; i++) {
+                                var irow = table.rows[i];                           
+                                irow.classList.remove("active");
+                            }
+                            row.classList.add("active");
+                        };
+                    };
+                    currentRowCell1.onclick = createCellHandler(currentRow, 0);//1
+                }
+            }            
+            async function extract()
+            {
+                console.log("teting termitup")
+                var lan = document.getElementById("idlan").value;
+                console.log("language: " + lan);
+                var text = document.getElementById("idta").value;
+                var data = {};
+                data.source_language = lan;
+                data.corpus = text;
+                var url = "https://termitup.oeg.fi.upm.es/extract_terminology";
+                console.log("Se va a consultar: " + JSON.stringify(data));
+                const response = await fetch(url,
+                        {
+                            method: 'POST',
+                            headers: {'Accept': 'application/json', 'Content-Type': 'application/json', },
+                            body: JSON.stringify(data)
+                        });
+                var terms = "";
+                const res = await response.json();
+
+                var arr = new Array();
+                var tot = res.length;
+                for (var i = 0; i < tot; i++) {
+                    arr.push(res[i]);
+                }
+                console.log("ares " + arr);
+                setTerms(arr);
+            }
+
+            async function refine()
+            {
+                $("#idspinnerrefine").css("display", "block");
+                $("#idtextrefine").html("");
+                console.log("teting termitup")
+                
+                var fuentes = "";
+                if (document.getElementById('idtimex').checked) fuentes+="timeEx, ";
+                if (document.getElementById('idpatterns').checked) fuentes+="patterns, ";
+                if (document.getElementById('idnumbers').checked) fuentes+="numbers, ";
+                if (fuentes.length>0)
+                    fuentes = fuentes.substring(0,fuentes.length-2);
+                
+                
+                var text = gterms;
+                const str = gterms.join(', ')
+                
+//                var text = document.getElementById("idta2").value;
+                var data = {};
+
+//                var str = text.replaceAll('\n', ', ');
+//                var str = str.replaceAll('\n\n', '\n')
+                console.log("Así es: " + str);
+
+                data.source_language = "en";
+                data.terms = str;
+                data.tasks = fuentes;
+                var url = "https://termitup.oeg.fi.upm.es/postprocess_terminology";
+                console.log("Se va a consultar para refinar: " + JSON.stringify(data));
+                const response = await fetch(url,
+                        {
+                            method: 'POST',
+                            headers: {'Accept': 'application/json', 'Content-Type': 'application/json', },
+                            body: JSON.stringify(data)
+                        });
+                var terms = "";
+                const res = await response.json();
+                console.log("Respuesta: " + JSON.stringify(res,null,2));
+                var tot = res.length;
+                for (var i = 0; i < tot; i++) {
+                    terms += res[i] + "\n";
+                }
+                setTerms(res);
+            //    document.getElementById('idta2').value = terms;
+                $("#idspinnerrefine").css("display", "none");
+                $("#idtextrefine").html("Refine");
+
+            }
+
+            function extractSentence(text, word)
+            {
+                var sentences = text.replace(/\.+/g,'.|').replace(/\?/g,'?|').replace(/\!/g,'!|').split("|");
+                for (const sentence of sentences) 
+                { 
+                    var v = RegExp('\\b'+ word +'\\b').test(sentence);
+                    if (v)
+                        return sentence;
+                }                
+                return "";
+            }
+
+            async function enrich()
+            {
+                $("#idspinnerenrich").css("display", "block");
+                $("#idtextenrich").html("");
+                
+                
+                var fuentes = "";
+                if (document.getElementById('ideurovoc').checked) fuentes+="eurovoc,";
+                if (document.getElementById('idilo').checked) fuentes+="ilo,";
+                if (document.getElementById('idiate').checked) fuentes+="iate,";
+                if (document.getElementById('idwikidata').checked) fuentes+="wikidata,";
+                if (document.getElementById('idthesoz').checked) fuentes+="thesoz,";
+                if (document.getElementById('idunesco').checked) fuentes+="unesco,";
+                if (document.getElementById('idstw').checked) fuentes+="stw,";
+                if (fuentes.length>0)
+                    fuentes = fuentes.substring(0,fuentes.length-1);
+ 
+                console.log("Se va a enriquecer este término: " + gselterm)
+                console.log("Se van a consultar estas fuentes:" + fuentes)
+                
+                var text = document.getElementById("idta").value;
+                var sentence = extractSentence(text, gselterm);
+                sentence.replace(/[\W_]+/g," ");
+                console.log("Se va a desambiguar con: " + sentence);
+//                var text = document.getElementById("idta2").value;
+                var text = gterms;
+                var data = {};
+
+               /* var str = text.replaceAll('\n', ', ');
+                var str = str.replaceAll('\n\n', '\n')
+                console.log("Así es: " + str);*/
+
+                data.source_language = "en";
+                data.terms = gselterm; //str; //o quiza solo el primer termino para qu eno se eternic
+                data.resources = fuentes; //"eurovoc, iate"; // wikidata, unesco, thesoz, stw, ilo"; 
+                data.target_languages = "en, es";
+                data.schema_name = "example";
+                data.corpus = sentence; // una frase que contenga el termino pero que no sea el corpus completo
+                data.relval = "no";
+                data.output_format = "skos";
+                data.sparql_publishing = "no";
+                var url = "https://termitup.oeg.fi.upm.es/enrich_terminology";
+                console.log("Se va a consultar: " + JSON.stringify(data));
+                const response = await fetch(url,
+                        {
+                            method: 'POST',
+                            headers: {'Accept': 'application/json', 'Content-Type': 'application/json', },
+                            body: JSON.stringify(data)
+                        });
+               // var terms = "";
+                const res = await response.json();
+                console.log("Respuesta: " + JSON.stringify(res,null,2));
+                document.getElementById('idta3').value = JSON.stringify(res, null, 2);
+                $("#idspinnerenrich").css("display", "none");
+                $("#idtextenrich").html("Enrich");
+                
+            }
+
+
+
+
+        </script>
+
+
+
+    </body>
+</html>

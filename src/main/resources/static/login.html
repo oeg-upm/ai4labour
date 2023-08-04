@@ -1,0 +1,106 @@
+<html>
+    <head>
+        <title>Authentication at ReputationReporter</title>
+        <meta charset="utf-8"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+        <link rel="icon" type="image/png" href="./public/images/favicon.png">        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!--        <link rel="stylesheet" href="public/./public/reputationreporter.css"> -->
+        <style>
+            @import url(https://fonts.googleapis.com/css?family=Fira+Sans);
+            .content {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                -webkit-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+            }
+            form  { display: table;      }
+            p     { display: table-row;  }
+            label { display: table-cell; }
+            input { display: table-cell; }                        
+        </style>
+    </head>
+    <body>
+        <div class="content">
+    <div>
+        
+        <h1 style="font-size: 2em;font-weight: bold;color:DarkBlue !important;font-family:'Fira Sans' !important;margin: 0 auto;">
+            <img src="images/terminoteca.png" height="40"/> Terminoteca</h1>        
+<!--        <div style="position: absolute; top: 5; right: 5; width: 105px; text-align:right;">
+            <a href="swagger-ui.html"><img src="images/openapi.png" width="100"></a>
+        </div> -->
+    </div>
+            <center></center>
+            <form name="f" action="login" method="post">               
+                <fieldset>
+                    <legend>Please Login</legend>
+                    <div id="iderror" class="alert alert-error">    
+                    </div>
+                    <p>
+                    <label for="username" style="width:150px;">Username</label>
+                    <input type="text" id="username" name="username"/>
+                    </p>
+                    <p>
+                    <label for="password"  style="width:150px;">Password</label>
+                    <input type="password" id="password" name="password"/>
+                    </p>
+                    <div class="form-actions">
+                        <button type="submit" class="btn">Log in</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <script>
+            console.log("login form");
+            var url_string = window.location.href;
+            var url = new URL(url_string);
+            var c = url.searchParams.get("error");
+            var divuser = document.getElementById("iderror");
+            if (c === "true")
+            {
+                divuser.innerHTML = '<font color="red">Invalid credentials</font>';
+            } else
+                divuser.innerHTML = "";
+
+        </script>
+
+        <script>
+            function includeHTML() {
+                var z, i, elmnt, file, xhttp;
+                console.log("Including html...");
+                /* Loop through a collection of all HTML elements: */
+                z = document.getElementsByTagName("*");
+                for (i = 0; i < z.length; i++) {
+                    elmnt = z[i];
+                    /*search for elements with a certain atrribute:*/
+                    file = elmnt.getAttribute("data-w3-include-html");
+                    if (file) {
+                        //file = file.replace("/blog/", "/posts/"); //apocrifa
+                        /* Make an HTTP request using the attribute value as the file name: */
+                        xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function () {
+                            if (this.readyState == 4) {
+                                if (this.status == 200) {
+                                    elmnt.innerHTML = this.responseText;
+                                }
+                                if (this.status == 404) {
+                                    elmnt.innerHTML = "Page not found.";
+                                }
+                                /* Remove the attribute, and call this function once more: */
+                                elmnt.removeAttribute("data-w3-include-html");
+                                includeHTML();
+
+                            }
+                        }
+                        xhttp.open("GET", file, true);
+                        xhttp.send();
+                        /* Exit the function: */
+                        return;
+                    }
+                }
+            }
+        </script>
+
+    </body>
+</html>

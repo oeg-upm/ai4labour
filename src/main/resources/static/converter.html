@@ -1,0 +1,339 @@
+<!-- el nº 4 puede servirme https://1linelayouts.glitch.me/ -->
+<!DOCTYPE html>
+<!-- https://www.youtube.com/watch?v=_uRvLOzUAUs PARA METER UN MODAL AL PRINCIPIO -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta lang="en" />
+    <meta name="keywords" content="SKOS, CSV converter" />
+    <meta name="description" content="CSV to SKOS converter" />
+    <title>Converter | easySKOS</title>
+    <!-- favicon icon -->
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <!--  -->
+    <link href="bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="header.css" />
+  </head>
+  <body>
+    <header class="header">
+      <nav class="kontainer kontainer--pl flex flex-jc-sb flex-ai-c">
+        <a href="easySKOS.html" class="header__logo">
+          <img src="./images/easySKOS.svg" alt="EasySKOS" />
+        </a>
+
+        <div class="header__links">
+          <a href="easySKOS.html">Home</a>
+          <a href="converter.html">Converter</a>
+          <a href="documentation.html">Documentation</a>
+          <a href="about.html">About us</a>
+          <a href="index.html">Terminoteca</a>
+        </div>
+
+        <div class="header_iconLinkContainer">
+          <a href="https://github.com/mdelucasg/terminoteca">
+            <img
+              class="header_iconLink"
+              height="24px"
+              src="./images/github.png"
+              width="24px"
+              alt="GitHub repository"
+            />
+          </a>
+        </div>
+      </nav>
+    </header>
+    <!-- Page -->
+    <section class="page">
+      <section class="stepsDetails">
+        <h1>How does <span id="easy">easy</span>SKOS work?</h1>
+        <hr class="br__spacing" />
+        <div class="steps__grid">
+          <div class="step__item">
+            <div class="item__icon">
+              <img src="images/I.png" alt="first step" />
+            </div>
+            <div class="item__title">
+              Choose and download the appropiate template
+            </div>
+          </div>
+          <div class="step__item">
+            <div class="item__icon">
+              <img src="images/II.png" alt="second step" />
+            </div>
+            <div class="item__title">Fill the template with your data</div>
+          </div>
+          <div class="step__item">
+            <div class="item__icon">
+              <img src="images/III.png" alt="third step" />
+            </div>
+            <div class="item__title">Drag and drop it in the box below</div>
+          </div>
+          <div class="step__item">
+            <div class="item__icon">
+              <img src="images/IV.png" alt="last step" />
+            </div>
+            <div class="item__title">Download your SKOS-based template</div>
+          </div>
+        </div>
+        <hr class="br__spacing" />
+        <h2>Select your more suitable template</h2>
+        <table
+          id="tablesorter-demo"
+          class="tablesorter table table-hover table-responsive"
+        >
+          <thead>
+            <tr>
+              <th class="col-md-2">Template</th>
+              <th class="col-md-1">Status</th>
+              <th class="col-md-1">Download</th>
+              <th class="col-md-1">License</th>
+              <th class="col-md-4">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="tr1">
+              <td>
+                <a href="documentation.html#eurovoc" target="_blank"
+                  ><span
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="More information about this template"
+                  />EUROVOC</a
+                >
+              </td>
+              <td>
+                <span class="label label-success">OK</span>
+              </td>
+              <td>
+                <a href="./templates/eurovoc.csv" download
+                  ><span class="label label-primary">csv</span></a
+                >
+                <a href="./templates/eurovoc.xlsx" download
+                  ><span class="label label-primary">xlsx</span></a
+                >
+              </td>
+              <td>
+                <a
+                  href="https://creativecommons.org/licenses/by/4.0/"
+                  target="_blank"
+                >
+                  <span class="label label-success">CC-BY</span>
+                </a>
+              </td>
+
+              <td>
+                Template for the EU's multilingual and multidisciplinary
+                thesaurus. Each concept is defined by six columns to set up its
+                metadata, two columns for the preferred and alternative label
+                (in twenty-seven languages) and three more columns to establish
+                its hierarchy.
+              </td>
+            </tr>
+
+            <tr id="tr2">
+              <td>
+                <a href="documentation.html#glossary" target="_blank"
+                  ><span
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="More information about this template"
+                  />Glossary</a
+                >
+              </td>
+              <td>
+                <span class="label label-success">OK</span>
+              </td>
+              <td>
+                <a href="./templates/glossary.csv" download
+                  ><span class="label label-primary">csv</span></a
+                >
+                <a href="./templates/glossary.xlsx" download
+                  ><span class="label label-primary">xlsx</span></a
+                >
+              </td>
+              <td>
+                <a
+                  href="https://creativecommons.org/licenses/by/4.0/"
+                  target="_blank"
+                >
+                  <span class="label label-success">CC-BY</span>
+                </a>
+              </td>
+              <td>
+                Template for a common glossary, which includes three columns to
+                set up its metadata and eight columns to name and define its
+                term, in four languages (English, Spanish, French and Italian).
+              </td>
+            </tr>
+
+            <tr id="tr3">
+              <td>
+                <a href="documentation.html#taxonomy" target="_blank"
+                  ><span
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="More information about this template"
+                  />Hierarchical taxonomy</a
+                >
+              </td>
+              <td>
+                <span class="label label-success">OK</span>
+              </td>
+              <td>
+                <a href="./templates/hierarchicalTaxonomy.csv" download
+                  ><span class="label label-primary">csv</span></a
+                >
+                <a href="./templates/hierarchicalTaxonomy.xlsx" download
+                  ><span class="label label-primary">xlsx</span></a
+                >
+              </td>
+              <td>
+                <a
+                  href="https://creativecommons.org/licenses/by/4.0/"
+                  target="_blank"
+                >
+                  <span class="label label-success">CC-BY</span>
+                </a>
+              </td>
+              <td>
+                Template for a hierarchical taxonomy, which includes three
+                columns to set up its metadata and four columns to establish the
+                preferred, alternative label, and broader or narrower concept.
+                It also includes four properties to define each term in three
+                languages (English, Spanish, and Italian) and to write notes
+                related to the term.
+              </td>
+            </tr>
+
+            <!-- <tr id="tr4">
+              <td>
+                <a href="documentation.html#glossary__plus" target="_blank"
+                  ><span
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="More information about this template"
+                  />Enriched glossary</a
+                >
+              </td>
+              <td>
+                <span class="label label-danger">ERROR</span>
+              </td>
+              <td>
+                <a href="./templates/glossary.csv" download
+                  ><span class="label label-primary">csv</span></a
+                >
+                <a href="./templates/glossary.xlsx" download
+                  ><span class="label label-primary">xlsx</span></a
+                >
+              </td>
+              <td>
+                <a
+                  href="https://creativecommons.org/licenses/by/4.0/"
+                  target="_blank"
+                >
+                  <span class="label label-success">CC-BY</span>
+                </a>
+              </td>
+              <td>Template for a enriched glossary, which includes...TODO</td>
+            </tr> -->
+          </tbody>
+        </table>
+      </section>
+      <section class="converter__action">
+        <div
+          id="drop_zone"
+          ondrop="dropHandler(event);"
+          ondragover="dragOverHandler(event);"
+        >
+          <div>
+            <em>Drop here your template</em>
+          </div>
+        </div>
+
+        <div
+          id="idloader1"
+          class="loader"
+          style="display: inline-block; visibility: hidden"
+        >
+          Working ...
+        </div>
+        <div
+          id="enlacedescarga"
+          onclick="this.style.visibility='hidden';"
+        ></div>
+        <div id="snackbar"></div>
+      </section>
+    </section>
+
+    <!-- Footer section -->
+    <div id="footer">
+      <a href="https://oeg.fi.upm.es/" target="_blank"
+        ><img src="./images/Logo_OEG.gif" width="45" height="45"
+      /></a>
+      <div class="foot__text" onclick="goTop()">
+        <div>Hosted by the Ontology Engineering Group - UPM</div>
+        <div>Latest revision May, 2022</div>
+      </div>
+      <div>
+        <img src="./images/fi.jpg" width="45" height="45" />
+        <img src="./images/upm.jpg" width="45" height="45" />
+      </div>
+    </div>
+    <script>
+      async function download(file) {
+        window.location.href = "/api/csv2skos/" + file + "/download";
+        document.getElementById("drop_zone").style.visibility = "visible";
+      }
+      function goTop() {
+        window.scrollTo(0, 0);
+      }
+      function dragOverHandler(ev) {
+        ev.preventDefault();
+      }
+      async function dropHandler(ev) {
+        ev.preventDefault();
+        if (ev.dataTransfer.items.length === 1) {
+          for (var i = 0; i < ev.dataTransfer.items.length; i++) {
+            if (ev.dataTransfer.items[i].kind === "file") {
+              var archivo = ev.dataTransfer.items[i].getAsFile();
+              let formData = new FormData();
+              formData.append("file", archivo);
+              document.getElementById("idloader1").style.visibility = "visible";
+              const response = await fetch("/api/csv2skos/transform", {
+                method: "POST",
+                body: formData,
+              });
+              const jresponse = await response.json();
+              var sresponse = JSON.stringify(jresponse, null, 2);
+              console.log("Recibiendo respuesta: " + sresponse);
+              document.getElementById("idloader1").style.visibility = "hidden";
+              if (jresponse.success === "false") {
+                var x = document.getElementById("snackbar");
+                x.style.visibility = "visible";
+                x.innerHTML = `<span>${jresponse.reason}</span>`;
+                setTimeout(function () {
+                  x.style.visibility = "hidden";
+                }, 5000);
+              } else {
+                var y = document.getElementById("enlacedescarga");
+                y.style.visibility = "visible";
+                console.log(
+                  (document.getElementById("drop_zone").style.visibility =
+                    "hidden")
+                );
+                var fileName = jresponse.identifier;
+                y.innerHTML =
+                  "Download your SKOS here: <span onclick=\"download('" +
+                  fileName +
+                  "');\">output.ttl</span>";
+              }
+            }
+          }
+        } else {
+          alert("You cannot upload more than one file per request.");
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,605 @@
+<!-- el nº 4 puede servirme https://1linelayouts.glitch.me/ -->
+<!DOCTYPE html>
+<!-- https://www.youtube.com/watch?v=_uRvLOzUAUs PARA METER UN MODAL AL PRINCIPIO -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta lang="en" />
+    <meta name="keywords" content="SKOS, CSV converter" />
+    <meta name="description" content="CSV to SKOS converter" />
+    <title>Documentation | easySKOS</title>
+    <!-- favicon icon -->
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <!--  -->
+    <link rel="stylesheet" href="header.css" />
+  </head>
+  <body>
+    <header class="header">
+      <nav class="kontainer kontainer--pl flex flex-jc-sb flex-ai-c">
+        <a href="easySKOS.html" class="header__logo">
+          <img src="./images/easySKOS.svg" alt="EasySKOS" />
+        </a>
+
+        <div class="header__links">
+          <a href="easySKOS.html">Home</a>
+          <a href="converter.html">Converter</a>
+          <a href="documentation.html">Documentation</a>
+          <a href="about.html">About us</a>
+          <a href="index.html">Terminoteca</a>
+        </div>
+
+        <div class="header_iconLinkContainer">
+          <a href="https://github.com/mdelucasg/terminoteca">
+            <img
+              class="header_iconLink"
+              height="24px"
+              src="./images/github.png"
+              width="24px"
+              alt="GitHub repository"
+            />
+          </a>
+        </div>
+      </nav>
+    </header>
+    <!-- Page -->
+    <section class="documentation__page">
+      <nav class="sidebar">
+        <a href="#overview" class="nav-link">Overview</a>
+        <a href="#templates" class="nav-link">Templates</a>
+        <a href="#eurovoc" class="sub__a">Eurovoc</a>
+        <a href="#glossary" class="sub__a">Glossary</a>
+        <a href="#taxonomy" class="sub__a">Hierarchical taxonomy</a>
+        <!-- <a href="#glossary__plus" class="sub__a">Enriched Glossary</a> -->
+        <a href="#examples" class="nav-link">Examples</a>
+        <a href="#ex__glossary" class="sub__a">Mapping a Glossary</a>
+        <a href="#ex__taxonomy" class="sub__a">Mapping a Taxonomy</a>
+        <a href="#errors" class="nav-link">Common errors</a>
+      </nav>
+      <main>
+        <div class="page">
+          <section id="overview">
+            <header class="section__header">Overview</header>
+            <div class="section__text">
+              <p>
+                easySKOS was born as the development part of the final
+                undergraduate project in Computer Engineering at the
+                Polytechnique University of Madrid. It is a free web application
+                that transforms your data in CSV or XLSX spreadsheets into
+                SKOS-based files, where its main objective is to reduce entry
+                barriers for people who do not know about the linked data
+                domain. <br />
+                The current version works statically, which means that every
+                template has its own mapping rules and that rules run inside the
+                RMLmapper engine. Therefore, the main restraint is to neither
+                change the name of the template nor its columns' structure,
+                because the mapper could not link the mapping rules to the
+                source file.
+              </p>
+            </div>
+          </section>
+          <section id="templates">
+            <header class="section__header">Templates</header>
+            <div class="section__text">
+              <p>
+                easySKOS provides three ready-to-use templates (in CSV or XLSX
+                format), each one covering a popular SKOS-based usage. Just fill
+                the cells with your data and easySKOS will do the rest.
+                Moreover, all the columns are optional except the ones marked
+                with * have to be fulfilled because easySKOS uses them to create
+                the International Resource Identifier (IRI) of the term.
+                <br />
+                The IRI is constructed following the next pattern:
+                <br />
+                    <div id="iri" title="IRI">
+                  &lthttp://terminoteca.linkeddata.es/kos/TEMPLATE/BASE IRI/SCHEME/ID&gt
+                </div>
+                <br />
+                However, it is important to highlight the importance of not
+                changing the name of the template and its structure, because the
+                transformation could not be done.
+                <br />
+                To sum up:
+              </p>
+              <ul>
+                <li class="li-mt">
+                  Download the template provided in
+                  <a href="converter.html">the converter page</a>.
+                </li>
+                <li>
+                  Fill the the template with your data. If you do not have
+                  information for a column, just let it blank, do not remove the
+                  column.
+                </li>
+                <li>
+                  Upload the template with the original filename and wait until
+                  easySKOS finishes.
+                </li>
+              </ul>
+            </div>
+            <section id="eurovoc">
+              <header class="subsection__header">EUROVOC</header>
+              <div class="section__text">
+                <p>
+                  Template for the multilingual and multidisciplinary thesaurus
+                  of the EU. Each concept is defined by six columns to set up
+                  its metadata, columns for the preferred and alternative labels
+                  (in twenty-seven languages), and three more columns to
+                  establish its hierarchy.
+                  <br />
+                  The names of the columns are:
+                </p>
+                <ul>
+                  <li class="li-mt">
+                    Metadata definition. Note that special characters are not
+                    allowed in these columns:
+                    <ul>
+                      <li>
+                        <span class="column-name">ID*: </span>Identifier that is
+                        used to form the International Resource Identifier (IRI)
+                        of each term.
+                      </li>
+                      <li>
+                        <span class="column-name">BASE IRI*: </span>Represents
+                        the exact path to access the resource. No special
+                        characters are allowed.
+                      </li>
+                      <li>
+                        <span class="column-name">SCHEME*: </span>Additional
+                        information used to classify the terms.
+                      </li>
+                      <li>
+                        <span class="column-name">CREATED dd-MM-yyyy: </span
+                        >Date of creation.
+                      </li>
+                      <li>
+                        <span class="column-name">VERSION: </span>Actual version
+                        of the term.
+                      </li>
+                      <li>
+                        <span class="column-name">STATUS: </span>Actual status
+                        of the term.
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    Concept definition. Note that the quotes can cause problems
+                    if they are not closed.
+                    <ul>
+                      <li>
+                        <span class="column-name">PREFERRRED LABEL: </span
+                        >Describe the concept in a clear and unambiguos way.
+                        There are 27 columns, each one for each european
+                        languages.
+                      </li>
+                      <li>
+                        <span class="column-name">ALTERNATIVE LABEL: </span>
+                        List synonyms, acronyms, or abbreviations available for
+                        a concept when necessary. There are 27 columns, each one
+                        for each european languages.
+                      </li>
+                      <li>
+                        <span class="column-name">BROADER CONCEPT: </span
+                        >Represents, in English, that this concept has broader concept, which
+                        means that this concept is the more specific one. NOTE:
+                        a SKOS concept can be attached to several broader
+                        concepts at the same time.
+                      </li>
+                      <li>
+                        <span class="column-name">NARROWER CONCEPT: </span
+                        >Represents, in English, that this concept has narrower concept,
+                        which means that this concept is the more generic one.
+                      </li>
+                      <li>
+                        <span class="column-name">RELATED: </span>Used to assert
+                        an associative link between two SKOS concepts.
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+                <div class="note-box">
+                  Example of Broader/Narrower Relationships
+                  <div class="code-example">
+                    <pre wrap="nowrap">
+    ex:animals rdf:type skos:Concept;
+      skos:prefLabel "Animals"@en;
+      skos:narrower ex:mammals.
+                          
+    ex:mammals rdf:type skos:Concept;
+      skos:prefLabel "Mammals"@en;
+      skos:broader ex:animals.
+                    </pre>
+                  </div>
+                  <strong>skos:broader</strong> and
+                  <strong>skos:narrower</strong> are
+                  <strong>NOT</strong> declared as transitive properties. They
+                  are only used to assert a direct hierarchical link between two
+                  SKOS concepts.
+                </div>
+                <div class="note-box">
+                  If you have more than one alternative label, broader or
+                  narrower concept, you have to duplicate the information in
+                  another row.
+                  <div>
+                    <img
+                      src="images/NoteBoxSemanticRelationships.PNG"
+                      width="100%"
+                      height="100%"
+                      alt="Alert"
+                    />
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section id="glossary">
+              <header class="subsection__header">Glossary</header>
+              <div class="section__text">
+                <p>
+                  Template for a common glossary, which includes three columns
+                  to set up its metadata, eight columns to name and define each
+                  term, in four languages (English, Spanish, French and
+                  Italian).
+                  <br />
+                  The names of the columns are:
+                </p>
+                <ul>
+                  <li class="li-mt">
+                    Metadata definition. Note that special characters are not
+                    allowed in these columns.
+                    <ul>
+                      <li>
+                        <span class="column-name">ID*: </span>Identifier that is
+                        used to form the International Resource Identifier (IRI)
+                        of each term.
+                      </li>
+                      <li>
+                        <span class="column-name">BASE IRI*: </span>Represents
+                        the exact path to access the resource. No special
+                        characters are allowed.
+                      </li>
+                      <li>
+                        <span class="column-name">SCHEME*: </span>Additional
+                        information used to classify the terms.
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    Concept definition. Note that the quotes can cause problems
+                    if they are not closed.
+                    <ul>
+                      <li>
+                        <span class="column-name">ES: </span>Term in Spanish.
+                      </li>
+                      <li>
+                        <span class="column-name">EN: </span>Term in English.
+                      </li>
+                      <li>
+                        <span class="column-name">FR: </span>Term in french.
+                      </li>
+                      <li>
+                        <span class="column-name">IT: </span>Term in italian.
+                      </li>
+                      <li>
+                        <span class="column-name">DEFINICION: </span>Definition
+                        in Spanish.
+                      </li>
+                      <li>
+                        <span class="column-name">DEFINITION: </span>Definition
+                        in English.
+                      </li>
+                      <li>
+                        <span class="column-name">DÉFINITION: </span>Definition
+                        in french.
+                      </li>
+                      <li>
+                        <span class="column-name">DEFINIZIONE: </span>Definition
+                        in italian.
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </section>
+            <section id="taxonomy">
+              <header class="subsection__header">Hierarchical taxonomy</header>
+              <div class="section__text">
+                <p>
+                  Template for a hierarchical taxonomy, which includes three
+                  columns to set up its metadata and four columns to establish
+                  the preferred, alternative label, and broader or narrower
+                  concept. It also includes four properties to define each term
+                  in three languages (English, Spanish, and Italian) and to
+                  write notes related to the term.
+                  <br />
+                  The names of the columns are:
+                </p>
+                <ul>
+                  <li class="li-mt">
+                    Metadata definition. Note that special characters are not
+                    allowed in these columns:
+                    <ul>
+                      <li>
+                        <span class="column-name">ID*: </span>Identifier that is
+                        used to form the International Resource Identifier (IRI)
+                        of each term.
+                      </li>
+                      <li>
+                        <span class="column-name">BASE IRI*: </span>Represents
+                        the exact path to access the resource. No special
+                        characters are allowed.
+                      </li>
+                      <li>
+                        <span class="column-name">SCHEME*: </span>Additional
+                        information used to classify the terms.
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    Concept definition. Note that the quotes can cause problems
+                    if they are not closed.
+                    <ul>
+                      <li>
+                        <span class="column-name">PREFERRRED LABEL: </span
+                        >Describe the concept in a clear and unambiguos way.
+                      </li>
+                      <li>
+                        <span class="column-name">ALTERNATIVE LABEL: </span>
+                        List synonyms, acronyms, or abbreviations available for
+                        a concept when necessary.
+                      </li>
+                      <li>
+                        <span class="column-name">BROADER CONCEPT: </span
+                        >Represents, in English, that this concept has broader concept, which
+                        means that this concept is the more specific one. NOTE:
+                        a SKOS concept can be attached to several broader
+                        concepts at the same time.
+                      </li>
+                      <li>
+                        <span class="column-name">NARROWER CONCEPT: </span
+                        >Represents, in English, that this concept has narrower concept,
+                        which means that this concept is the more generic one.
+                      </li>
+                      <li>
+                        <span class="column-name">DEFINICION: </span>Definition
+                        in Spanish.
+                      </li>
+                      <li>
+                        <span class="column-name">DEFINITION: </span>Definition
+                        in English.
+                      </li>
+                      <li>
+                        <span class="column-name">DEFINIZIONE: </span>Definition
+                        in italian.
+                      </li>
+                      <li>
+                        <span class="column-name">NOTE: </span>Additional
+                        information.
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+                <div class="note-box">
+                  Remember, if you have more than one alternative label, broader
+                  or narrower concept, you have to duplicate the information in
+                  another row.
+                  <div>
+                    <img
+                      src="images/NoteBoxSemanticRelationships.PNG"
+                      width="100%"
+                      height="100%"
+                      alt="Alert"
+                    />
+                  </div>
+                </div>
+              </div>
+            </section>
+            <!-- <section id="glossary__plus">
+              <header class="subsection__header">Enriched glossary</header>
+              <div class="section__text">
+                <p>
+                  easySKOS provides several templates, each one covering a
+                  popular SKOS-based usage. Actually, we have built the
+                  following one:
+                </p>
+              </div>
+            </section> -->
+          </section>
+          <section id="examples">
+            <header class="section__header">Examples</header>
+            <div class="section__text">
+              <p>
+                Here, we are going to illustrate how the user should use the
+                easySKOS converter, covering each of the steps that must be done
+                for the correct functioning of the tool.
+              </p>
+            </div>
+            <section id="ex__glossary">
+              <header class="subsection__header">Mapping a glossary</header>
+              <div class="section__text">
+                <p>
+                  Due to the fact that our data follows the structure of a
+                  glossary, we choose and download the
+                  <a href="../static/templates/glossary.xlsx" target="_blank"
+                    >Glossary template.</a
+                  >
+                  <br />
+                  Our glossary only contains terms and definitions from English
+                  and Spanish, so we let the columns for the other languages in
+                  blank. The converter will skip the mapping of that columns.
+                  <br />
+                  In the following image you can see how is filled the template,
+                  but you may want to see the completed result in our
+                  <a href="www.github.com/" target="_blank"
+                    >github repository.</a
+                  >
+                </p>
+                <div class="note-box">
+                  <img
+                    src="images/example1.PNG"
+                    width="100%"
+                    height="100%"
+                    alt="Alert"
+                  />
+                </div>
+                <p>
+                  After filling the template with our data, we just have to drag
+                  and drop it to the converter and wait to download our
+                  SKOS-based file.
+                  <a href="www.github.com/" target="_blank">Here,</a> you can
+                  see the files used in this example and the output SKOS-based
+                  file.
+                </p>
+                <div class="note-box">
+                  Part of the output SKOS-based file.
+                  <div class="code-example">
+                    <pre wrap="nowrap">
+    @prefix rdf: &lthttp://www.w3.org/1999/02/22-rdf-syntax-ns#&gt.
+    @prefix skos: &lthttp://www.w3.org/2004/02/skos/core#&gt .
+    
+    &lthttp://http://terminoteca.linkeddata.es/kos/glossary/example/IT/ii_1&gt a skos:Concept ;
+      skos:definition ""@es ;
+      skos:inScheme &lthttp://terminoteca.linkeddata.es/kos/glossary/example/IT&gt; ;
+      skos:prefLabel "abort"@en, "cancelar"@es .
+    
+    &lthttp://http://terminoteca.linkeddata.es/kos/glossary/example/IT/ii_2&gt a skos:Concept ;
+      skos:inScheme &lthttp://terminoteca.linkeddata.es/kos/glossary/example/IT&gt; ;
+      skos:prefLabel "alternate current"@en, "corriente alterna"@es .
+    
+    &lthttp://http://terminoteca.linkeddata.es/kos/glossary/example/IT/ii_3&gt a skos:Concept ;
+      skos:inScheme &lthttp://terminoteca.linkeddata.es/kos/glossary/example/IT&gt; ;
+      skos:prefLabel "allocate"@en, "asignar"@es .
+    
+    &lthttp://http://terminoteca.linkeddata.es/kos/glossary/example/IT/ii_4&gt a skos:Concept ;
+      skos:inScheme &lthttp://terminoteca.linkeddata.es/kos/glossary/example/IT&gt; ;
+      skos:prefLabel "bitmap"@en, "mapa de bits"@es .
+    
+    &lthttp://http://terminoteca.linkeddata.es/kos/glossary/example/IT/ii_5&gt a skos:Concept ;
+      skos:inScheme &lthttp://terminoteca.linkeddata.es/kos/glossary/example/IT&gt; ;
+      skos:prefLabel "branch"@en, "rama"@es .
+                    </pre>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section id="ex__taxonomy">
+              <header class="subsection__header">Mapping a taxonomy</header>
+              <div class="section__text">
+                <p>
+                  Due to the fact that our data follows the structure of a
+                  taxonomy, we choose and download the
+                  <a
+                    href="../static/templates/hierarchicalTaxonomy.xlsx"
+                    target="_blank"
+                    >Hierarchical taxonomy template.</a
+                  >
+                  <br />
+                  Our taxonomy only contains definitions from English, so we let
+                  the columns for the other languages in blank. The converter
+                  will skip the mapping of that columns.
+                  <br />
+                  In the following image you can see how is filled the template,
+                  but you may want to see the completed result in our
+                  <a href="www.github.com/" target="_blank"
+                    >github repository.</a
+                  >
+                </p>
+                <div class="note-box">
+                  <img
+                    src="images/example2.PNG"
+                    width="100%"
+                    height="100%"
+                    alt="Taxonomy example"
+                  />
+                </div>
+                <p>
+                  It is important to point out how we duplicate the information
+                  for the terms that have more than one alternative label and
+                  broader or narrower concepts.
+                  <br />
+                  After filling the template with our data, we just have to drag
+                  and drop it to the converter and wait to download our
+                  SKOS-based file.
+                  <a href="www.github.com/" target="_blank">Here,</a> you can
+                  see the files used in this example and the output SKOS-based
+                  file.
+                </p>
+                <div class="note-box">
+                  Part of the output SKOS-based file.
+                  <div class="code-example">
+                    <pre wrap="nowrap">
+    @prefix owl: &lthttp://www.w3.org/2002/07/owl#&gt .
+    @prefix rdf: &lthttp://www.w3.org/1999/02/22-rdf-syntax-ns#&gt.
+    @prefix skos: &lthttp://www.w3.org/2004/02/skos/core#&gt .
+    
+    &lthttp://terminoteca.linkeddata.es/kos/hierarchicalTaxonomy/example/crime/A100&gt a skos:Concept ;
+      owl:sameAs &lthttp://terminoteca.linkeddata.es/kos/hierarchicalTaxonomy/example/crime/A100&gt; ;
+      skos:altLabel "Corporate crime"@en ;
+      skos:definition "Conduct of a corporation, or of employees acting on behalf of a corporation, which is proscribed and punishable by law."@en ;
+      skos:inScheme &lthttp://terminoteca.linkeddata.es/kos/hierarchicalTaxonomy/example/crime&gt; ;
+      skos:narrrower &lthttp://terminoteca.linkeddata.es/kos/hierarchicalTaxonomy/example/crime/A101&gt,
+        &lthttp://terminoteca.linkeddata.es/kos/hierarchicalTaxonomy/example/crime/A102&gt, &lthttp://terminoteca.linkeddata.es/kos/hierarchicalTaxonomy/example/crime/A103&gt; ;
+      skos:note "Refers to acts in violation of the law that are committed by businesses, corporations, or individuals within those entities."@en ;
+      skos:prefLabel "Organisational crime"@en .
+    
+    &lthttp://terminoteca.linkeddata.es/kos/hierarchicalTaxonomy/example/crime/A101&gt a skos:Concept ;
+      owl:sameAs &lthttp://terminoteca.linkeddata.es/kos/hierarchicalTaxonomy/example/crime/A101&gt; ;
+      skos:altLabel "Fraudulent bankruptcy"@en ;
+      skos:broader &lthttp://terminoteca.linkeddata.es/kos/hierarchicalTaxonomy/example/crime/A100&gt; ;
+      skos:definition "State of a person who has been adjudged by a court to be insolvent"@en ;
+      skos:inScheme &lthttp://terminoteca.linkeddata.es/kos/hierarchicalTaxonomy/example/crime&gt; ;
+      skos:note "A commercial practice is regarded as a misleading omission when, taking account of all its features and circumstances and the limitations of the communication medium, a trader hides material information or provides such information in an unclear, unintelligible, ambiguous or untimely manner or fails to identify the commercial intent of the commercial practice if not already apparent from the context, and where, in either case, this causes or is likely to cause the average consumer to take a transactional decision that he would not have taken otherwise"@en ;
+      skos:prefLabel "Bankruptcy"@en .
+                    </pre>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </section>
+          <section id="errors">
+            <header class="section__header">Common errors</header>
+            <div class="section__text">
+              <p>
+                There basically two errors that may appear when using the
+                easySKOS converter.
+              </p>
+              <ul>
+                <li class="li-mt">
+                  An error occurred when transforming your template: It means
+                  that some columns of the template have been changed or the
+                  RMLmapper engine is having problems.
+                  <ul>
+                    <li class="limt">
+                      Check whether the colums name were changed and if not,
+                      please <a href="about.html">let us know the problem</a>.
+                    </li>
+                    <li class="limt">
+                      Check whether quotes have been added
+                      and remove them. If not, please
+                      <a href="about.html">let us know the problem</a>.
+                    </li>
+                  </ul>
+                </li>
+                <li class="br__spacing">
+                  Cannot set the mapping rules for that file: It means that the
+                  filename of the template was changed and the converter is not
+                  able to link the mapping rules with source file.
+                  <ul>
+                    <li class="limt">
+                      Check whether the filename was changed and if not, please
+                      <a href="about.html">let us know the problem</a>.
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+              <p>
+                In addition, if there are special characters like ?,;*^`'º$%&,
+                the converter will encode them and the final result may be
+                changed and illegible.
+              </p>
+            </div>
+          </section>
+        </div>
+      </main>
+    </section>
+  </body>
+</html>

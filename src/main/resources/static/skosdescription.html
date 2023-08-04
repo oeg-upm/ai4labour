@@ -1,0 +1,98 @@
+<html>
+
+    <head>
+        <title>Legal</title>
+        <meta name="description" content="This website is focused on collecting information from companies or people on different web pages and displaying them in a table."/>
+        <meta name="keywords" content="defaulter, companies" />
+        <meta name="language" content="en" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="author" content="Gustavo Olivares"/>
+        <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+        <link href="css/main.css" rel="stylesheet" />
+        <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+        <script src="js/extention/choices.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"/>
+        <script src="libs/jspdf.umd.js"></script>
+        <script src="dist/jspdf.plugin.autotable.js"></script>
+
+        <style type="text/css">
+            .cardBrowse{
+                background-color: #ffffff;
+                border: 1px solid rgba(0,0,0,.125);
+                /*height: 150px;*/
+                border-radius: 8px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="content">
+            <form id="formmov" >
+                <div class="cardBrowse">
+                    <div class="card-body1">
+                        <div class="text-container">
+                            <div class="paneltextoBrowse">
+                                <span class="titleterm">Description of the terminology</span>
+                                <div class="custom-scrollbar-css p-2">
+                                    <hr
+                                        <p style="text-align: justify;"><span data-preserver-spaces="true">In this section, we are going to explain the way we have done the terminology about crimes.&nbsp;</span></p>
+                                    <h2 style="text-align: justify;"><span data-preserver-spaces="true">Data</span></h2>
+                                    <p style="text-align: justify;"><span data-preserver-spaces="true">First of all, we use a CSV file in which we collect each crime term, with its information, which includes an URI, synonyms, relations between others terms, definition from the legal dictionary and in some cases, some extra information. &nbsp;</span></p>
+                                    <p style="text-align: justify;"><span data-preserver-spaces="true">After cleaning all the data, we are ready to go further in the process. </span><span data-preserver-spaces="true">The&nbsp;</span><em><span data-preserver-spaces="true">RMLMapper&nbsp;</span></em><span data-preserver-spaces="true">helps us to convert the CSV file into RDF, using customized mappings that are coded in RML.</span></p>
+                                    <h2 style="text-align: justify;"><span data-preserver-spaces="true">Skos (Simple Knowledge Organization System)</span></h2>
+                                    <p style="text-align: justify;"><span data-preserver-spaces="true">We use the Skos' vocabulary because of its ability to represent and organize taxonomies.</span></p>
+                                    <p style="text-align: justify;"><span data-preserver-spaces="true">The relationships we use from this vocabulary are:</span></p>
+                                    <ul style="text-align: justify;">
+                                        <li><span data-preserver-spaces="true">skos:Concept &rarr; define the crime term we are going to modelized.</span></li>
+                                        <li><span data-preserver-spaces="true">skos:prefLabel &rarr; define how the term is known.</span></li>
+                                        <li><span data-preserver-spaces="true">skos:altLabel &rarr; define synonyms&nbsp;</span></li>
+                                        <li><span data-preserver-spaces="true">skos:narrower &rarr; enable the representation of hierarchical links between terms. It represents more specific terms.</span></li>
+                                        <li><span data-preserver-spaces="true">skos:broader &rarr; enable the representation of hierarchical links between terms. It represents more general terms.</span></li>
+                                        <li><span data-preserver-spaces="true">skos:note &rarr; add extra documentation about the term.</span></li>
+                                        <li><span data-preserver-spaces="true">skos:definition &rarr; add, if exists, the definition in the&nbsp;</span><em><span data-preserver-spaces="true">Diccionario panhisp&aacute;nico del espa&ntilde;ol jur&iacute;dico.</span></em></li>
+                                    </ul>
+                                    <p style="text-align: justify;">&nbsp;</p>
+                                    <p style="text-align: justify;"><span data-preserver-spaces="true">The hierarchical links we have built are based on the internal code of each term. For example, the term A001000000 is&nbsp;</span><em><span data-preserver-spaces="true">broader</span></em><span data-preserver-spaces="true">&nbsp;than the term A001002000, A001003000, A001004000, A001005000, A001006000, A001007000 and each of those terms are&nbsp;</span><em><span data-preserver-spaces="true">narrower&nbsp;</span></em><span data-preserver-spaces="true">than A001000000.</span></p>
+                                    <h2 style="text-align: justify;">&nbsp;</h2>
+
+
+                                    <button type="button"  class="btn btn btn-success" onclick="location.href = 'skosdelitos.html'">See Terminology</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <footer style="font-size: 12px;position: absolute;left: 0;bottom: 0;width: 100%;overflow: hidden; background-color: #ffffff;  font-family: "News Cycle","Arial Narrow Bold",sans-serif; font-size: 1px;  font-family: "News Cycle","Arial Narrow Bold",sans-serif;  font-weight: 700; font-family: Georgia,"Times New Roman",Times,serif; font-size: 15px; line-height: 1.42857143; color: #888888 transparent;  background-color: #ffffff; ">
+            <center>
+                <hr>
+                <table>
+                    <tbody><tr>
+                            <td width="50%" style="border: 1; padding-right: 2em; padding-left: 2em; ">
+                                <table>
+                                    <tbody><tr><td width="50px"><img src="images/logo_cponet.png" width="100%"></td>
+                                            <td>  This project has received funding from the company: <a href="https://www.cponet.net">CPONET</a></td></tr>
+                                    </tbody></table>
+                            </td>
+                            <td>
+                                <table>
+                                    <tbody><tr>
+                                            <td width="180px"><img src="images/Logo_OEG.gif" width="60px;"><img src="images/fi.jpg" width="50px;"><img src="images/upm.jpg" width="60px;"></td>
+                                            <td>Ontology Engineering Group (<a href="http://www.oeg-upm.net">OEG</a>)<br><a href="https://www.fi.upm.es">Escuela Técnica Superior de Ingenieros Informáticos</a><br><a href="https://www.upm.es">Universidad Politécnica de Madrid</a></td>
+                                        </tr>
+                                    </tbody></table>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                <hr></hr>
+                <a rel="license" href="legal.html">Terms of Use</a>
+            </center>
+        </footer>
+    </body>
+</html>

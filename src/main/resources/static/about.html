@@ -1,0 +1,132 @@
+<!-- el nº 4 puede servirme https://1linelayouts.glitch.me/ -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta lang="en" />
+    <meta name="keywords" content="SKOS, CSV converter" />
+    <meta name="description" content="CSV to SKOS converter" />
+    <title>About us | easySKOS</title>
+    <!-- favicon icon -->
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <!--  -->
+    <link rel="stylesheet" href="header.css" />
+  </head>
+
+  <body>
+    <header class="header">
+      <nav class="kontainer kontainer--pl flex flex-jc-sb flex-ai-c">
+        <a href="easySKOS.html" class="header__logo">
+          <img src="./images/easySKOS.svg" alt="EasySKOS" />
+        </a>
+
+        <div class="header__links">
+          <a href="easySKOS.html">Home</a>
+          <a href="converter.html">Converter</a>
+          <a href="documentation.html">Documentation</a>
+          <a href="about.html">About us</a>
+          <a href="index.html">Terminoteca</a>
+        </div>
+
+        <div class="header_iconLinkContainer">
+          <a href="https://github.com/mdelucasg/terminoteca">
+            <img
+              class="header_iconLink"
+              height="24px"
+              src="./images/github.png"
+              width="24px"
+              alt="GitHub repository"
+            />
+          </a>
+        </div>
+      </nav>
+    </header>
+    <!-- Page -->
+    <section class="page">
+      <div class="introduction">
+        <h1>easySKOS: Introduction</h1>
+        <hr style="margin-top: -20px" />
+      </div>
+      <h2 style="margin-top: 40px">What is easySKOS?</h2>
+      <p>
+        <strong style="font-size: 20px">easySKOS</strong> is a free web service
+        that converts CSV or XLSX spreedsheet files into
+        <a
+          href="http://www.w3.org/TR/2009/REC-skos-reference-20090818/"
+          target="_blank"
+          >SKOS</a
+        >-based thesaurus, using underneath the power engine of
+        <a href="https://github.com/RMLio/rmlmapper-java" target="_blank"
+          >RMLmapper</a
+        >, that is a a Java-based library that executes RML rules to generate
+        Linked Data. SKOS was chosen because it is a common data model for
+        sharing and linking knowledge organization systems, such as thesauri,
+        taxonomies or classifications schemes, across the Web.
+      </p>
+      <h2 style="margin-top: 40px">What can be done with it?</h2>
+      <strong style="font-size: 20px">easySKOS</strong> is still under
+      development, but it provides the following features:
+      <ul>
+        <li>
+          Transform your CSV data into SKOS-based thesaurus following the
+          templates provided.
+        </li>
+        <li>
+          Transform your XLSX spreedsheet (Excel) data into SKOS-based thesaurus
+          following the templates provided.
+        </li>
+        <li>Validate your SKOS-based thesaurus (In progress).</li>
+      </ul>
+      <h2 style="margin-top: 40px">For whom has it been built?</h2>
+      <p>
+        <strong style="font-size: 20px">easySKOS</strong> is an easy-to-use tool
+        whom targe public is everyone who is will to transform her tabular data
+        in SKOS thesaurus following the guidelines of Linked Data.
+      </p>
+      <h2 style="margin-top: 40px">Who build it?</h2>
+      <p>
+        <strong style="font-size: 20px">easySKOS</strong> has been built by the
+        undergraduates students from the Polytechnique University of Madrid,
+        with the valuable help of the
+        <a href="https://oeg.fi.upm.es/" target="_blank"
+          >Ontology Engineering Group.</a
+        >
+      </p>
+      <h2 style="margin-top: 40px">Contributions</h2>
+      <div>
+        If you have an idea to improve the tool, we are glad to hear by:
+        <ul>
+          <li>
+            <a href="mailto:m.delucas@alumnos.upm.es">Send us an email</a>;
+          </li>
+          <li>
+            File an issue in
+            <a href="https://github.com/oeg-upm/terminoteca" target="_blank"
+              >the Github repository</a
+            >;
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!-- Footer section -->
+    <div id="footer">
+      <a href="https://oeg.fi.upm.es/" target="_blank"
+        ><img src="./images/Logo_OEG.gif" width="45" height="45"
+      /></a>
+      <div class="foot__text" onclick="goTop()">
+        <div>Hosted by the Ontology Engineering Group - UPM</div>
+        <div>Latest revision May, 2022</div>
+      </div>
+      <div>
+        <img src="./images/fi.jpg" width="45" height="45" />
+        <img src="./images/upm.jpg" width="45" height="45" />
+      </div>
+    </div>
+    <script>
+      function goTop() {
+        window.scrollTo(0, 0);
+      }
+    </script>
+  </body>
+</html>
