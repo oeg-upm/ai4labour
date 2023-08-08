@@ -12,6 +12,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Status {
     
+    private boolean linux;
     
     public static void main(String args[])
     {
@@ -23,6 +24,11 @@ public class Status {
     {
         Status status = new Status();
         return status;
+    }
+    
+    public boolean getLinux()
+    {
+        return Main.LINUX;
     }
     
     public String toString() {
