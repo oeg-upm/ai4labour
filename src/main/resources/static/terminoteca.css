@@ -27,10 +27,13 @@ html,body {
    padding:20px;
 }
 #vbody {
-    margin-left: 100px;
-    margin-right:100px;
+    margin-left:   50px;
+    margin-right:  50px;
     padding:2px;
-    padding-bottom:65px; /* Height of the footer */
+    padding-bottom: 65px; /* Height of the footer */
+    display: grid;
+    height: 100vh;
+    place-items: center;
 }
 #vfooter {
    position:absolute;

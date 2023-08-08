@@ -26,7 +26,7 @@ public class Courses {
         if (!courses.isEmpty()) {
             return;
         }
-        String pdffolder = Main.DATAFOLDER + "/pdf";
+        String pdffolder = Main.DATAFOLDER + "/courses/upm";
         File dir = new File(pdffolder);
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {

@@ -1,47 +1,139 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
+
         <title>AI4Labour</title>
-        <meta charset="utf-8"> 
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
         <link rel="icon" type="image/png" href="favicon.png">        
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="terminoteca.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jsonld/1.0.0/jsonld.min.js"></script>        
-        <script type="text/javascript" src="terminoteca.js"></script>        
-    </head>
-    <body onload="inicio()">
 
-
-        <!-- No bootstrap. Organization as in https://matthewjamestaylor.com/bottom-footer -->
-        <div id="vcontainer">
-            <div id="vheader">
-                <div w3-include-html="header.html"></div>
-            </div> 
-            
-
-            <div id="vbody">
-
-                <form class="example" onSubmit="search();" style="margin:auto;max-width:450px; margin-bottom:50px;">
-                    <input type="text" placeholder="Write here a skill you would like to acquire" name="q" >
-                    <button type="submit" ><i class="fa fa-search"></i></button>
-                </form>
-
-
-            </div>
-            <div id="vfooter">
-                <div w3-include-html="footer.html"></div>
-            </div>
-        </div>        
-
-        <script>
-            includeHTML();
-
-            function inicio()
-            {
-                console.log("Welcome!");
-                var language = window.navigator.userLanguage || window.navigator.language;
+        <style>
+            @media screen and (max-width: 1024px) {
+                .contingente {
+                    display:none;
+                }
+            }
+            body {
+                padding-bottom: 70px; /* Add padding to accommodate the fixed footer */
             }
 
-        </script>        
+            .table {
+                width: 100%;
+                max-width: 800px; /* Limit the table width for responsiveness */
+                margin-top: 20px;
+                font-size: 80%; /* Adjust the font size as needed */
+            }
+            .header {
+                display: flex;
+                align-items: center;
+                background-color: #f4f4f4; /* Very light grey background color */
+                padding: 10px; /* Add some padding to the header */
+            }
+
+            .logo {
+                max-width: 60px; /* Adjust the size of your logo */
+                margin-right: 20px; /* Add some spacing between the logo and text */
+
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <img src="images/ai4labour.png" style="width:80px;" alt="logo" class="logo">
+                <h2 class="mt-2">What do you want to learn?</h2>
+            </div>
+
+            <div class="input-group mb-3 mt-4">
+                <input id="searchInput" type="text" class="form-control" placeholder="Type a skill..." style="width:100px; "onkeypress="handleKeyPress(event)" >
+                <button class="btn btn-primary" type="button" onclick="handleSearch()">Search</button>
+            </div>
+
+            <table class="table mt-4" id="idtable" style="display:none;">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Result</th>
+                    </tr>
+                </thead>
+                <tbody id="idtbody">
+                    <!--                <tr>
+                                        <th scope="row">1</th>
+                                        <td>Search Result 1</td>
+                                    </tr>-->
+
+                </tbody>
+            </table>
+        </div>
+
+        <footer class="fixed-bottom  py-2">
+            <table style="font-size:small;color:black;">
+                <tbody>
+                    <tr style="border-top-width:1px;">
+                        <td width="180px">
+                            <img src="images/Logo_OEG.gif" width="50">
+                            <img src="images/fi.jpg" width="40">
+                            <img src="images/upm.jpg" width="50">
+                        </td>
+                        <td width="330px">Ontology Engineering Group (<a href="http://www.oeg-upm.net">OEG</a>)
+                            <br>Escuela Técnica Superior de Ingenieros Informáticos
+                            <br>Universidad Politécnica de Madrid</td>
+                        <td style="margin-left:50px;" width=100>
+                        </td>
+                        <td style="margin-left:50px" class="contingente">
+                            <img src="images/eu.jpg" style="float:right;padding-left:5px;" width="40"/>
+                            <a href="https://ai4labour.com/"><img src="images/ai4labour.jpg" style="float:right;padding-left:5px;" width="40"/></a>
+
+                            <p style="text-align: right; ">AI4LABOUR v28. This project has received funding from the European Union's Horizon 2020 
+                                research and innovation programme under grant agreement No 101007961: AI4LABOUR.</p> 
+                        </td>
+                    </tr>
+                </tbody>
+            </table>         
+        </footer>
+
+        <script>
+            function handleKeyPress(event) {
+                if (event.key === "Enter") {
+                    handleSearch();
+                }
+            }
+            async function handleSearch() {
+                const inputElement = document.getElementById("searchInput");
+                const searchText = inputElement.value;
+                if (searchText.trim() !== "") {
+                    console.log("Searching:", searchText.trim());
+                }
+                const encodedQuery = encodeURIComponent(searchText);
+                const baseUrl = "api/search";
+                const fullUrl = `${baseUrl}?q=${encodedQuery}`;
+                const response = await fetch(fullUrl);
+                const jcourses = await response.json();
+                
+                console.log("Cursos: " + JSON.stringify(jcourses));
+                
+                var searchResults=['casa','perro'];
+                updateTable(jcourses);
+            }
+            function updateTable(results) {
+                const table = document.getElementById("idtable");
+                const tableBody = table.querySelector("tbody");
+                tableBody.innerHTML = "";
+                results.forEach((result, index) => {
+                    const row = tableBody.insertRow();
+                    const cell1 = row.insertCell(0);
+                    const cell2 = row.insertCell(1);
+                    
+                    cell1.innerHTML = '<a href="'+ result.link+'"><img src="images/pdf20.png"></a>';
+                    cell2.innerHTML = '<b>'+result.title+'</b><br/>';
+                    cell2.innerHTML +='<i>'+result.institution+'</i><br/>';
+                    cell2.innerHTML +=result.degree;
+                });
+                table.style.display = results.length === 0 ? "none" : "table";
+            }
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

@@ -19,6 +19,7 @@ public class Course {
     public String title = "";
     public String lan = "";
     public String degree = "";
+    public String link="";
     public List<String> learning_outcomes = new ArrayList();
 
     public String toString() {

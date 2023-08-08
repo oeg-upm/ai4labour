@@ -35,7 +35,7 @@ public class ParserGuiaAprendizaje {
             PDDocument doc = PDDocument.load(file);
             text = new PDFTextStripper().getText(doc);
             lg.lan = (text.contains("GUÍA DE APRENDIZAJE")) ? "es" : "en";
-            
+            lg.link = "https://ai4labour.linkeddata.es/data/courses/upm/"+file.getName();
             if (lg.lan.equals("es"))
             {
                 lg.title = getFragment("ASIGNATURA", "PLAN DE ESTUDIOS").split("-")[1].trim();
