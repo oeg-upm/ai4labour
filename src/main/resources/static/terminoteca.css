@@ -177,3 +177,32 @@ form.example::after {
   .btn:hover {
     background-color: bisque;
   }
+
+            .language {
+                font-weight: bold;
+                font-size: large;
+            }
+            .plantilla {
+                color: #808080;
+                font-family: "Fira Sans", Arial, sans-serif;
+            }
+            .contenidos {
+                color: #7070C0;
+                font-family: "Fira Sans", Arial, sans-serif;
+            }
+            .preflabel {
+                font-weight: bold;
+                font-size: large;
+            }
+
+            hr{
+                margin: 15px;
+                border: 1px solid #808080;
+            }
+            .hrsoft{
+                margin: 10px;
+                border: 1px solid #DEDEDE;
+            }
+            #idbulk{
+                font-size: small;
+            }
