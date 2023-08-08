@@ -11,13 +11,15 @@ import java.util.List;
  *
  * @author victor
  */
-public class LearningGuide {
+public class Course {
 
     public String id = "";
     public String local_id = "";
     public String institution = "";
     public String title = "";
-    public List<String> learning_outcome = new ArrayList();
+    public String lan = "";
+    public String degree = "";
+    public List<String> learning_outcomes = new ArrayList();
 
     public String toString() {
         try {
@@ -41,5 +43,14 @@ public class LearningGuide {
         } catch (Exception e) {
             return value;
         }
+    }
+
+    public boolean hasLO(String value) {
+        for(String lo : learning_outcomes)
+        {
+            if (lo.contains(value))
+                return true;
+        }
+        return false;
     }
     }

@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import oeg.crec.model.LearningGuide;
+import oeg.crec.model.Course;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
@@ -19,23 +19,37 @@ public class ParserGuiaAprendizaje {
     public static void main(String arg[]) {
         String input = "d:\\guia.pdf";
         ParserGuiaAprendizaje parser = new ParserGuiaAprendizaje();
-        LearningGuide lg = parser.parse(input);
+        Course lg = parser.parse(input);
         System.out.println(lg);
 
     }
     
-    public LearningGuide parse(String sfile)
+    public Course parse(String sfile)
     {
-        LearningGuide lg = new LearningGuide();
+        Course lg = new Course();
         lg.institution = "Universidad Politécnica de Madrid";
+        
         
         try {
             File file = new File(sfile);
             PDDocument doc = PDDocument.load(file);
             text = new PDFTextStripper().getText(doc);
-            lg.title = getFragment("ASIGNATURA", "PLAN DE ESTUDIOS").split("-")[1].trim();
-            lg.local_id = getFragment("ASIGNATURA", "PLAN DE ESTUDIOS").split("-")[0].trim();
-            lg.learning_outcome = getSkills();
+            lg.lan = (text.contains("GUÍA DE APRENDIZAJE")) ? "es" : "en";
+            
+            if (lg.lan.equals("es"))
+            {
+                lg.title = getFragment("ASIGNATURA", "PLAN DE ESTUDIOS").split("-")[1].trim();
+                lg.local_id = getFragment("ASIGNATURA", "PLAN DE ESTUDIOS").split("-")[0].trim();
+                lg.degree = getFragment("PLAN DE ESTUDIOS", "CURSO ACADÉMICO Y SEMESTRE").split("-")[1].trim();
+                lg.learning_outcomes = getSkills("3.2. Resultados del aprendizaje","4. Descripción de la asignatura y temario" );
+            }
+            else
+            {
+                lg.title = getFragment("SUBJECT", "DEGREE PROGRAMME").split("-")[1].trim();
+                lg.local_id = getFragment("SUBJECT", "DEGREE PROGRAMME").split("-")[0].trim();
+                lg.degree = getFragment("DEGREE PROGRAMME", "ACADEMIC YEAR & SEMESTER").split("-")[1].trim();
+                lg.learning_outcomes = getSkills("3.2. Learning outcomes","4. Brief description of the subject and syllabus" );
+            }
             lg.autoSetId();
             
         }catch(Exception e)
@@ -60,11 +74,9 @@ public class ParserGuiaAprendizaje {
         return frag;
     }
 
-    private List<String> getSkills() {
+    private List<String> getSkills(String limite1, String limite2) {
         try {
             String ra = "";
-            String limite1 = "3.2. Resultados del aprendizaje";
-            String limite2 = "4. Descripción de la asignatura y temario";
             
             int i0=text.indexOf(limite1);
             int i10=text.indexOf(limite2);

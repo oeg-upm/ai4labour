@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Version and internal information method.
+ * http://localhost:8080/api/status
+ * https://ai4labour.linkeddata.es/crec/api/status
  * @author vroddon
  */
 @RestController
