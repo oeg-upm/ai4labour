@@ -113,7 +113,7 @@
                 
                 console.log("Cursos: " + JSON.stringify(jcourses));
                 
-                var searchResults=['casa','perro'];
+                
                 updateTable(jcourses);
             }
             function updateTable(results) {
@@ -125,7 +125,8 @@
                     const cell1 = row.insertCell(0);
                     const cell2 = row.insertCell(1);
                     
-                    cell1.innerHTML = '<a href="'+ result.link+'"><img src="images/pdf20.png"></a>';
+                    cell1.innerHTML = '<a href="'+ result.link+'"><img src="images/pdf20.png" width=20px></a>';
+                    cell1.innerHTML += '<a href="'+ result.link+'"><img src="images/json.png" width=20px></a>';
                     cell2.innerHTML = '<b>'+result.title+'</b><br/>';
                     cell2.innerHTML +='<i>'+result.institution+'</i><br/>';
                     cell2.innerHTML +=result.degree;

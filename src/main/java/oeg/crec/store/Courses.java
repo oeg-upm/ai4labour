@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import oeg.crec.Main;
 import oeg.crec.model.Course;
-import oeg.crec.upm.ParserGuiaAprendizaje;
+import oeg.crec.upm.ParserUPM;
 
 /**
  *
@@ -31,7 +31,7 @@ public class Courses {
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
             for (File child : directoryListing) {
-                Course course = new ParserGuiaAprendizaje().parse(child.getAbsolutePath());
+                Course course = new ParserUPM().parse(child.getAbsolutePath());
                 courses.add(course);
             }
         } else {
@@ -48,6 +48,8 @@ public class Courses {
         for(Course course : courses)
         {
             if (course.hasLO(value))
+                list.add(course);
+            else if (course.hasAnywhere(value))
                 list.add(course);
         }
         return list;

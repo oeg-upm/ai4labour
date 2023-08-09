@@ -45,11 +45,21 @@ public class Course {
             return value;
         }
     }
+    public boolean hasAnywhere(String value) {
+        String s1 = this.toString().toLowerCase();
+        String s2 = value.toLowerCase();
+        if (s1.contains(s2))
+            return true;
+        return false;
+    }
 
     public boolean hasLO(String value) {
         for(String lo : learning_outcomes)
         {
-            if (lo.contains(value))
+            String s1 = lo.toLowerCase();
+            String s2 = value.toLowerCase();
+            
+            if (s1.contains(s2))
                 return true;
         }
         return false;

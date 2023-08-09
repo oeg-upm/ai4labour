@@ -12,16 +12,15 @@ import org.apache.pdfbox.text.PDFTextStripper;
  * Methods to parse a UPM Guía de Aprendizaje
  * @author victor
  */
-public class ParserGuiaAprendizaje {
+public class ParserUPM {
 
     String text = "";
     
     public static void main(String arg[]) {
         String input = "d:\\guia.pdf";
-        ParserGuiaAprendizaje parser = new ParserGuiaAprendizaje();
+        ParserUPM parser = new ParserUPM();
         Course lg = parser.parse(input);
         System.out.println(lg);
-
     }
     
     public Course parse(String sfile)
