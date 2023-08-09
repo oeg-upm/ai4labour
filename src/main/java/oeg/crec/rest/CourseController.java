@@ -8,6 +8,7 @@ import oeg.crec.Status;
 import oeg.crec.model.Course;
 import oeg.crec.store.Courses;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,12 +20,20 @@ import org.springframework.web.bind.annotation.RestController;
  * @author victor
  */
 @RestController
-@RequestMapping(value = "/api/search")
+@RequestMapping(value = "/api/course")
 @Api(tags = "search", value = "Searches for courses.", description = "Internal methods.")
-public class SearchController {
+public class CourseController {
     
+    @ApiOperation(value = "Gets a course.", notes = "")
+    @GetMapping(value = "/{id}", produces = "application/json")
+    @ResponseBody
+    public Course get(@PathVariable String id) {
+        Course courses = Courses.get(id);
+        return courses;
+    }
+
     @ApiOperation(value = "Searches a course.", notes = "")
-    @GetMapping(value = "", produces = "application/json")
+    @GetMapping(value = "/search", produces = "application/json")
     @ResponseBody
     public List<Course> search(
     @ApiParam(name="q", value="Searches a course by LO",  example="") @RequestParam(defaultValue="", required = false) String q
@@ -32,5 +41,8 @@ public class SearchController {
         List<Course> courses = Courses.search(q);
         return courses;
     }
+    
+    
+    
      
 }

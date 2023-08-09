@@ -7,7 +7,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
         <link rel="icon" type="image/png" href="favicon.png">        
-
         <style>
             @media screen and (max-width: 1024px) {
                 .contingente {
@@ -17,7 +16,6 @@
             body {
                 padding-bottom: 70px; /* Add padding to accommodate the fixed footer */
             }
-
             .table {
                 width: 100%;
                 max-width: 800px; /* Limit the table width for responsiveness */
@@ -30,7 +28,6 @@
                 background-color: #f4f4f4; /* Very light grey background color */
                 padding: 10px; /* Add some padding to the header */
             }
-
             .logo {
                 max-width: 60px; /* Adjust the size of your logo */
                 margin-right: 20px; /* Add some spacing between the logo and text */
@@ -58,11 +55,6 @@
                     </tr>
                 </thead>
                 <tbody id="idtbody">
-                    <!--                <tr>
-                                        <th scope="row">1</th>
-                                        <td>Search Result 1</td>
-                                    </tr>-->
-
                 </tbody>
             </table>
         </div>
@@ -106,7 +98,7 @@
                     console.log("Searching:", searchText.trim());
                 }
                 const encodedQuery = encodeURIComponent(searchText);
-                const baseUrl = "api/search";
+                const baseUrl = "api/course/search";
                 const fullUrl = `${baseUrl}?q=${encodedQuery}`;
                 const response = await fetch(fullUrl);
                 const jcourses = await response.json();
@@ -124,9 +116,9 @@
                     const row = tableBody.insertRow();
                     const cell1 = row.insertCell(0);
                     const cell2 = row.insertCell(1);
-                    
+                    const link1 = 'http://ai4labour.linkeddata.es/crec/api/course/'+ result.local_id;
                     cell1.innerHTML = '<a href="'+ result.link+'"><img src="images/pdf20.png" width=20px></a>';
-                    cell1.innerHTML += '<a href="'+ result.link+'"><img src="images/json.png" width=20px></a>';
+                    cell1.innerHTML += '<a href="'+ link1+'"><img src="images/json.png" width=20px></a>';
                     cell2.innerHTML = '<b>'+result.title+'</b><br/>';
                     cell2.innerHTML +='<i>'+result.institution+'</i><br/>';
                     cell2.innerHTML +=result.degree;

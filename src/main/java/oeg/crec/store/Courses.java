@@ -42,6 +42,16 @@ public class Courses {
         }
     }
 
+    public static Course get(String id) {
+        init();
+        for(Course course : courses)
+        {
+            if (course.local_id.equals(id))
+                return course;
+        }
+        return null;
+    }
+    
     public static List<Course> search(String value) {
         init();
         List<Course> list = new ArrayList();
