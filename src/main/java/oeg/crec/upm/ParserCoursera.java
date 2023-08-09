@@ -3,7 +3,7 @@ package oeg.crec.upm;
 import oeg.crec.model.Course;
 
 /**
- *
+ * Data from Maria NavaS: https://github.com/mnavasloro/course_crawler
  * @author victor
  */
 public class ParserCoursera {

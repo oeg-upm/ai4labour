@@ -175,13 +175,14 @@ public class ParserKadir {
             return null;
         }
         Course course = new Course();
-        course.institution = "Kadir Has University";
+        course.institution = "Kadir Has Üniversitesi";
         course.title = getTextInTable(0,1,0);
         course.local_id = getLocalId(uri);
         course.contents = getTextInTable(1,7,1);
         String[] los = getTextInTable(1,8,1).split("\n");
         for(String lo : los)
             course.learning_outcomes.add(lo);
+        uri =uri.replace("ders", "pdf");
         course.link = uri;
         course.autoSetId();
         return course;

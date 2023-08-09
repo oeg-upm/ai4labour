@@ -3,11 +3,13 @@ package oeg.crec.store;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import oeg.crec.Main;
 import oeg.crec.model.Course;
 import oeg.crec.upm.ParserUPM;
+import org.apache.commons.io.FileUtils;
 
 /**
  *
@@ -22,6 +24,19 @@ public class Courses {
         for (Course course : courses) {
             System.out.println(course.title);
         }
+        export();
+    }
+    public static void export()
+    {
+        try{
+            String sfile = Main.DATAFOLDER+"/courses/courses.json";
+            ObjectMapper objectMapper = new ObjectMapper();
+            String json = objectMapper.writeValueAsString(courses);
+            FileUtils.writeStringToFile(new File(sfile), json, "UTF-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }          
+        
     }
 
     public static void init() {

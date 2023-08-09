@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * This class describes a learning guide
- *
+ * https://www.onetonline.org/
  * @author victor
  */
 public class Course {

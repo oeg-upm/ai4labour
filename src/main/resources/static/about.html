@@ -2,11 +2,12 @@
 <html lang="en">
     <head>
 
-        <title>AI4Labour</title>
+        <title>AI4Labour - Technical info</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css">        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <link rel="icon" type="image/png" href="favicon.png">        
         <style>
             @media screen and (max-width: 1024px) {
@@ -40,24 +41,12 @@
         <div class="container">
             <div class="header">
                 <img src="images/ai4labour.png" style="width:80px;" alt="logo" class="logo">
-                <h2 class="mt-2">What do you want to learn?</h2>
+                <h2 class="mt-2">Some technical info</h2>
             </div>
 
-            <div class="input-group mb-3 mt-4">
-                <input id="searchInput" type="text" class="form-control" placeholder="Type a skill (Bayes, C++, biology...)" style="width:100px; "onkeypress="handleKeyPress(event)" >
-                <button class="btn btn-primary" type="button" onclick="handleSearch()">Search</button>
-            </div>
+            <h4>Raw data</h4>
+                <a href="data/courses/courses.json" class="btn btn-primary"><i class="bi bi-download"></i> Courses</a>
 
-            <table class="table mt-4" id="idtable" style="display:none;">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Result</th>
-                    </tr>
-                </thead>
-                <tbody id="idtbody">
-                </tbody>
-            </table>
         </div>
 
         <footer class="fixed-bottom  py-2" style="background-color:whitesmoke;">
@@ -87,47 +76,8 @@
         </footer>
 
         <script>
-            function handleKeyPress(event) {
-                if (event.key === "Enter") {
-                    handleSearch();
-                }
-            }
-            async function handleSearch() {
-                const inputElement = document.getElementById("searchInput");
-                const searchText = inputElement.value;
-                if (searchText.trim() !== "") {
-                    console.log("Searching:", searchText.trim());
-                }
-                const encodedQuery = encodeURIComponent(searchText);
-                const baseUrl = "api/course/search";
-                const fullUrl = `${baseUrl}?q=${encodedQuery}`;
-                const response = await fetch(fullUrl);
-                const jcourses = await response.json();
-                
-                console.log("Cursos: " + JSON.stringify(jcourses));
-                
-                
-                updateTable(jcourses);
-            }
-            function updateTable(results) {
-                const table = document.getElementById("idtable");
-                const tableBody = table.querySelector("tbody");
-                tableBody.innerHTML = "";
-                results.forEach((result, index) => {
-                    const row = tableBody.insertRow();
-                    const cell1 = row.insertCell(0);
-                    const cell2 = row.insertCell(1);
-                    const link1 = 'http://ai4labour.linkeddata.es/crec/api/course/'+ result.local_id;
-                    cell1.innerHTML = '<a href="'+ result.link+'"><img src="images/pdf20.png" width=20px></a>';
-                    cell1.innerHTML += '<a href="'+ link1+'"><img src="images/json.png" width=20px></a>';
-                    cell2.innerHTML = '<b>'+result.title+'</b><br/>';
-                    cell2.innerHTML +='<i>'+result.institution+'</i><br/>';
-                    cell2.innerHTML +=result.degree;
-                });
-                table.style.display = results.length === 0 ? "none" : "table";
-            }
+
         </script>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
