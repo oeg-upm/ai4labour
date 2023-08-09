@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.List;
+import oeg.crec.store.Courses;
 
 /**
  * This class represents the internal state of the crecportal.
@@ -13,13 +14,18 @@ import java.util.List;
 public class Status {
     
     private boolean linux;
+    private int total_courses;
+
+
     
     public static void main(String args[])
     {
         Status org = Status.getStatus();
         System.out.println(org);
     }
+
     
+
     public static Status getStatus()
     {
         Status status = new Status();
@@ -30,6 +36,10 @@ public class Status {
     {
         return Main.LINUX;
     }
+    public int getTotal_courses() {
+        return Courses.courses.size();
+    }
+    
     
     public String toString() {
         try {

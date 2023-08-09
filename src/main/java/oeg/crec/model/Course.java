@@ -20,8 +20,12 @@ public class Course {
     public String lan = "";
     public String degree = "";
     public String link="";
+    public String contents="";
     public List<String> learning_outcomes = new ArrayList();
 
+
+    
+    
     public String toString() {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -31,6 +35,18 @@ public class Course {
             return null;
         }
     }
+    public static Course parseJSON(String json)
+    {
+        Course course = null;
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            course = objectMapper.readValue(json, Course.class);
+            System.out.println("Deserialized Course: " + course);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        
+        return course;
+    }    
 
     public void autoSetId() {
         String tin = encodeValue(institution);
@@ -64,4 +80,4 @@ public class Course {
         }
         return false;
     }
-    }
+}

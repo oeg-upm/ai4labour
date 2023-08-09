@@ -1,5 +1,7 @@
 package oeg.crec.store;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,7 @@ public class Courses {
         if (!courses.isEmpty()) {
             return;
         }
+        //init UPM
         String pdffolder = Main.DATAFOLDER + "/courses/upm";
         File dir = new File(pdffolder);
         File[] directoryListing = dir.listFiles();
@@ -35,11 +38,21 @@ public class Courses {
                 courses.add(course);
             }
         } else {
-            // Handle the case where dir is not really a directory.
-            // Checking dir.isDirectory() above would not be sufficient
-            // to avoid race conditions with another process that deletes
-            // directories.
         }
+        //init KADIR
+        try{
+            String sfile = Main.DATAFOLDER+"/courses/kadir/courses.json";
+            File jsonFile = new File(sfile);
+            ObjectMapper objectMapper = new ObjectMapper();
+            List<Course> course2 = objectMapper.readValue(jsonFile, new TypeReference<List<Course>>() {});
+            courses.addAll(course2);
+        }catch(Exception es)
+        {
+            es.printStackTrace();
+        }
+        
+        
+        
     }
 
     public static Course get(String id) {

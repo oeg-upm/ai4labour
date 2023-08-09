@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Main {
     
     public static boolean LINUX = false;
-    public static String DATAFOLDER = "/var/www/html/data/course/test";
+    public static String DATAFOLDER = "/var/www/html/data/";
     
     static {
         LINUX = !System.getProperty("os.name").toLowerCase().contains("win");
