@@ -1,12 +1,22 @@
 package oeg.crec.upm;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import oeg.crec.Main;
+import oeg.crec.Misc;
 import oeg.crec.model.Course;
+import org.apache.commons.io.FileUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 /**
  * Methods to parse a UPM Guía de Aprendizaje
@@ -16,19 +26,76 @@ public class ParserUPM {
 
     String text = "";
     
+    
+    
     public static void main(String arg[]) {
-        String input = "d:\\guia.pdf";
-        ParserUPM parser = new ParserUPM();
-        Course lg = parser.parse(input);
-        System.out.println(lg);
+//        download();
+        generateJSON();
     }
     
+    /**
+     * Parses all the PDFs and generates a single JSON.
+     */
+    public static void generateJSON()
+    {
+        List<Course> courses = new ArrayList();
+        String pdffolder = Main.DATAFOLDER + "/courses/upm";
+        File dir = new File(pdffolder);
+        File[] directoryListing = dir.listFiles();
+        if (directoryListing != null) {
+            for (File child : directoryListing) {
+                if (!child.getAbsolutePath().endsWith(".pdf"))
+                    continue;
+                Course course = new ParserUPM().parse(child.getAbsolutePath());
+                courses.add(course);
+            }
+        } else {
+        }
+        
+        try{
+            String sfile = Main.DATAFOLDER+"/courses/upm/courses.json";
+            ObjectMapper objectMapper = new ObjectMapper();
+            String json = objectMapper.writeValueAsString(courses);
+            FileUtils.writeStringToFile(new File(sfile), json, "UTF-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }                
+    }
+   
+    
+    
+    public static void download()
+    {
+        //https://www.fi.upm.es/?pagina=2749 science in health
+        //https://www.fi.upm.es/?pagina=2873 matematicas e informatica
+        //https://www.fi.upm.es/?pagina=2875 grado en ciencia de datos e ia
+        //https://www.fi.upm.es/?pagina=2877 informatica y ade
+        String url="https://www.fi.upm.es/?pagina=2877";
+        try {
+            Document document = Jsoup.connect(url).get();
+            Elements links = document.select("a[href]");
+            for (Element link : links) {
+                String href = link.attr("href");
+                if (!href.contains("/publico"))
+                    continue;
+                System.out.println(href);
+                Misc.download(href);
+                
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }             
+
+    }
+    
+    /**
+     * Parses one individual PDF file with a learning guide in the UPM format.
+     */
     public Course parse(String sfile)
     {
         Course lg = new Course();
         lg.institution = "Universidad Politécnica de Madrid";
-        
-        
         try {
             File file = new File(sfile);
             PDDocument doc = PDDocument.load(file);
@@ -55,15 +122,11 @@ public class ParserUPM {
         {
             return lg;
         }
-        
-        
-        
         return lg;
     }
-/*        
+
+/********************************************************************************************
 */    
-    
-    
     private String getFragment(String limite1, String limite2)  {
         String frag="";
         int i0=text.indexOf(limite1);

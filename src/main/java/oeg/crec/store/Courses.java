@@ -26,6 +26,10 @@ public class Courses {
         }
         export();
     }
+    
+    /**
+     * Exports the courses loaded in memory into a single JSON file.
+     */
     public static void export()
     {
         try{
@@ -36,27 +40,10 @@ public class Courses {
         } catch (IOException e) {
             e.printStackTrace();
         }          
-        
     }
-
-    public static void init() {
-        if (!courses.isEmpty()) {
-            return;
-        }
-        //init UPM
-        String pdffolder = Main.DATAFOLDER + "/courses/upm";
-        File dir = new File(pdffolder);
-        File[] directoryListing = dir.listFiles();
-        if (directoryListing != null) {
-            for (File child : directoryListing) {
-                Course course = new ParserUPM().parse(child.getAbsolutePath());
-                courses.add(course);
-            }
-        } else {
-        }
-        //init KADIR
+    public static void importar(String sfile)
+    {
         try{
-            String sfile = Main.DATAFOLDER+"/courses/kadir/courses.json";
             File jsonFile = new File(sfile);
             ObjectMapper objectMapper = new ObjectMapper();
             List<Course> course2 = objectMapper.readValue(jsonFile, new TypeReference<List<Course>>() {});
@@ -64,12 +51,26 @@ public class Courses {
         }catch(Exception es)
         {
             es.printStackTrace();
+        }        
+    }
+    
+
+    /** 
+     * Loads the courses into memory.
+    */
+    public static void init() {
+        if (!courses.isEmpty()) {
+            return;
         }
-        
-        
-        
+        //init UPM
+        importar(Main.DATAFOLDER+"/courses/kadir/courses.json");
+        //init KADIR
+        importar(Main.DATAFOLDER+"/courses/upm/courses.json");
     }
 
+    /**
+     * Gets a course by id.
+     */
     public static Course get(String id) {
         init();
         for(Course course : courses)
