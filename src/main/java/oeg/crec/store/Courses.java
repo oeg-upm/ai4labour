@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import oeg.crec.Main;
 import oeg.crec.model.Course;
-import oeg.crec.upm.ParserUPM;
+import oeg.crec.parsers.ParserUPM;
 import org.apache.commons.io.FileUtils;
 
 /**
@@ -24,34 +24,35 @@ public class Courses {
         for (Course course : courses) {
             System.out.println(course.title);
         }
-        export();
+        String sfile = Main.DATAFOLDER+"/courses/courses.json";
+        escribir(courses, sfile);
     }
     
     /**
      * Exports the courses loaded in memory into a single JSON file.
      */
-    public static void export()
+    public static void escribir(List<Course> coursesx, String sfile)
     {
         try{
-            String sfile = Main.DATAFOLDER+"/courses/courses.json";
             ObjectMapper objectMapper = new ObjectMapper();
-            String json = objectMapper.writeValueAsString(courses);
+            String json = objectMapper.writeValueAsString(coursesx);
             FileUtils.writeStringToFile(new File(sfile), json, "UTF-8");
         } catch (IOException e) {
             e.printStackTrace();
         }          
     }
-    public static void importar(String sfile)
+    public static List<Course> leer(String sfile)
     {
         try{
             File jsonFile = new File(sfile);
             ObjectMapper objectMapper = new ObjectMapper();
             List<Course> course2 = objectMapper.readValue(jsonFile, new TypeReference<List<Course>>() {});
-            courses.addAll(course2);
+            return course2;
         }catch(Exception es)
         {
             es.printStackTrace();
         }        
+        return new ArrayList();
     }
     
 
@@ -63,13 +64,14 @@ public class Courses {
             return;
         }
         //init UPM
-        importar(Main.DATAFOLDER+"/courses/kadir/courses.json");
+        courses.addAll(leer(Main.DATAFOLDER+"/courses/kadir/courses.json"));
         //init KADIR
-        importar(Main.DATAFOLDER+"/courses/upm/courses.json");
+        courses.addAll(leer(Main.DATAFOLDER+"/courses/upm/courses.json"));
     }
 
     /**
      * Gets a course by id.
+     * 
      */
     public static Course get(String id) {
         init();
@@ -81,15 +83,27 @@ public class Courses {
         return null;
     }
     
-    public static List<Course> search(String value) {
+    /**
+     * Returns courses. max=10
+     */
+    public static List<Course> search(String value, int max) {
         init();
         List<Course> list = new ArrayList();
+        int count=0;
         for(Course course : courses)
         {
             if (course.hasLO(value))
+            {
+                count++;
                 list.add(course);
+            }
             else if (course.hasAnywhere(value))
+            {
+                count++;
                 list.add(course);
+            }
+            if (count==max)
+                break;
         }
         return list;
     }

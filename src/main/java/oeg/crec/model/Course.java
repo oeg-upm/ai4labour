@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -23,6 +24,7 @@ public class Course {
     public String contents="";
     public String objective="";
     public List<String> learning_outcomes = new ArrayList();
+    public List<Float> bloom = Arrays.asList(0F,0F,0F,0F,0F);
 
 
     

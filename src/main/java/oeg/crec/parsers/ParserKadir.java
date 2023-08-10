@@ -1,4 +1,4 @@
-package oeg.crec.upm;
+package oeg.crec.parsers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import oeg.crec.Main;
+import oeg.crec.bloom.Bloom;
 import oeg.crec.model.Course;
+import oeg.crec.store.Courses;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -26,43 +28,32 @@ public class ParserKadir {
     Document docProgram = null;
 
     public static void main(String arg[]) {
-        
-        scrapAll();
-        /*
-        String samplecourse = "https://bologna.khas.edu.tr/ders/30002402/program/50258558";
-        String sampleprogram = "https://bologna.khas.edu.tr/program/50258558/ders-plani-sap";
-        ParserKadir parser = new ParserKadir();
-        
-        List<String> programs = getPrograms();
-        Course lg = parser.parse(samplecourse);
-        System.out.println(lg);
-        List<Course> courses = parser.parseProgram(sampleprogram);
-        
-        
-        try{
-            String sfile = Main.DATAFOLDER+"/courses/kadir/courses.json";
-            ObjectMapper objectMapper = new ObjectMapper();
-            String json = objectMapper.writeValueAsString(courses);
-            FileUtils.writeStringToFile(new File(sfile), json, "UTF-8");
-            System.out.println("Veamos1: " + courses.get(0));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }        
-        
-        try{
-            String sfile = Main.DATAFOLDER+"/courses/kadir/courses.json";
-            File jsonFile = new File(sfile);
-            ObjectMapper objectMapper = new ObjectMapper();
-            List<Course> course2 = objectMapper.readValue(jsonFile, new TypeReference<List<Course>>() {});
-            System.out.println("Veamos2: " + course2.get(0));
-        }catch(Exception es)
-        {
-            
-        }
-*/
-        
+        scrapLocal();
     }
     public static List<Course> all = new ArrayList();
+    
+    public static void scrapLocal()
+    {
+        List<Course> cursos = new ArrayList();
+        Bloom bloom = new Bloom("en");
+        String sfolder = Main.DATAFOLDER+"/courses/kadir/";
+        File dir = new File(sfolder);
+        File[] directoryListing = dir.listFiles();
+        if (directoryListing != null) {
+            for (File child : directoryListing) {
+                if (!child.getAbsolutePath().endsWith(".json") || child.getName().equals("courses.json"))
+                    continue;
+                List<Course> cs = Courses.leer(child.getAbsolutePath());
+                for(Course c : cs)
+                {
+                    c.bloom = bloom.getBloom(c);
+                    cursos.add(c);
+                }
+                System.out.println(cs.size());
+            }
+        }
+        Courses.escribir(cursos, sfolder+"courses.json");
+    }
     
     public static void scrapAll()
     {
@@ -141,6 +132,8 @@ public class ParserKadir {
                 System.out.println("Error en: " + u);
                 continue;
             }
+            Bloom bloom = new Bloom("en");
+            course.bloom = bloom.getBloom(course);
             course.degree=programid;
             
             

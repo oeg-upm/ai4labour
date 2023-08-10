@@ -38,7 +38,7 @@ public class CourseController {
     public List<Course> search(
     @ApiParam(name="q", value="Searches a course by LO",  example="") @RequestParam(defaultValue="", required = false) String q
     ) {
-        List<Course> courses = Courses.search(q);
+        List<Course> courses = Courses.search(q, 5);
         return courses;
     }
     

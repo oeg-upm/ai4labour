@@ -1,4 +1,4 @@
-package oeg.crec.upm;
+package oeg.crec.parsers;
 
 import oeg.crec.model.Course;
 
