@@ -21,6 +21,7 @@ public class Course {
     public String degree = "";
     public String link="";
     public String contents="";
+    public String objective="";
     public List<String> learning_outcomes = new ArrayList();
 
 

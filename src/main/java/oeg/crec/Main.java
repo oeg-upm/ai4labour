@@ -19,11 +19,14 @@ public class Main {
     }
     
     public static void main(String[] args) {
-        
-        System.out.println("Linux: " + LINUX);
-        Courses.init();
+        init();
         SpringApplication.run(Main.class, args);
     }
     
+    public static void init()
+    {
+        System.out.println("Linux: " + LINUX);
+        Courses.init();
+    }
     
 }

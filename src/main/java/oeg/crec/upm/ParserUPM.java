@@ -107,14 +107,16 @@ public class ParserUPM {
                 lg.title = getFragment("ASIGNATURA", "PLAN DE ESTUDIOS").split("-")[1].trim();
                 lg.local_id = getFragment("ASIGNATURA", "PLAN DE ESTUDIOS").split("-")[0].trim();
                 lg.degree = getFragment("PLAN DE ESTUDIOS", "CURSO ACADÉMICO Y SEMESTRE").split("-")[1].trim();
-                lg.learning_outcomes = getSkills("3.2. Resultados del aprendizaje","4. Descripción de la asignatura y temario" );
+                lg.learning_outcomes = getSkills("Resultados del aprendizaje","Descripción de la asignatura y temario" );
+                lg.objective = getFragment("1. Descripción de la asignatura", "2. Temario de la asignatura");
+//                lg.contents = getFragment("2. Temario de la asignatura", "5. Cronograma");
             }
             else
             {
                 lg.title = getFragment("SUBJECT", "DEGREE PROGRAMME").split("-")[1].trim();
                 lg.local_id = getFragment("SUBJECT", "DEGREE PROGRAMME").split("-")[0].trim();
                 lg.degree = getFragment("DEGREE PROGRAMME", "ACADEMIC YEAR & SEMESTER").split("-")[1].trim();
-                lg.learning_outcomes = getSkills("3.2. Learning outcomes","4. Brief description of the subject and syllabus" );
+                lg.learning_outcomes = getSkills("Learning outcomes","Brief description of the subject and syllabus" );
             }
             lg.autoSetId();
             
@@ -135,6 +137,16 @@ public class ParserUPM {
            frag  = text.substring(i0+limite1.length(),i1);
         return frag;
     }
+   /* private String getFragment2(String limite1, String limite2)  {
+        String frag="";
+        int i0=text.indexOf(limite1);
+        int i10=text.indexOf(limite2);
+        int i1=text.indexOf(limite2,i10+1);
+            
+        if (i0!=-1 && i1!=-1)
+           frag  = text.substring(i0+limite1.length(),i1);
+        return frag;
+    }*/
 
     private List<String> getSkills(String limite1, String limite2) {
         try {

@@ -62,10 +62,10 @@ public class ParserKadir {
 */
         
     }
+    public static List<Course> all = new ArrayList();
     
     public static void scrapAll()
     {
-        List<Course> all = new ArrayList();
         ParserKadir parser = new ParserKadir();
         List<String> programs = getPrograms();
         int i=0;
@@ -136,8 +136,22 @@ public class ParserKadir {
         {
             String u = "https://bologna.khas.edu.tr/"+courseurl;
             Course course = parse(u);
+            if (course==null)
+            {
+                System.out.println("Error en: " + u);
+                continue;
+            }
             course.degree=programid;
-            courses.add(course);
+            
+            
+            boolean existia=false;
+            for(Course a : all)
+            {
+                if (a.id.equals(course.id))
+                    existia=true;
+            }
+            if (!existia)
+                courses.add(course);
      //       System.out.println(course);
             i++;
             if (i==9999)
@@ -177,17 +191,50 @@ public class ParserKadir {
         Course course = new Course();
         course.institution = "Kadir Has Üniversitesi";
         course.title = getTextInTable(0,1,0);
+        if (course.title.isEmpty())
+            return null;
         course.local_id = getLocalId(uri);
-        course.contents = getTextInTable(1,7,1);
-        String[] los = getTextInTable(1,8,1).split("\n");
-        for(String lo : los)
-            course.learning_outcomes.add(lo);
+        
+        int icontent = guessRow(1, "Course Contents:");
+        int ilos = guessRow(1,"Learning Outcomes");    
+        int iobje = guessRow(1,"Objectives");
+        
+        if (icontent>0)
+            course.contents = getTextInTable(1,icontent,1);
+        if(iobje>0)
+            course.objective = getTextInTable(1,iobje,1);
+        if(ilos>0)
+        {
+            String[] los = getTextInTable(1,ilos,1).split("\n");
+            for(String lo : los)
+                course.learning_outcomes.add(lo);
+        }
+        
         uri =uri.replace("ders", "pdf");
         course.link = uri;
         course.autoSetId();
         return course;
     }
 
+    private int guessRow(int itable,String header)
+    {
+        Elements tables = docCourse.select("table");
+        if (itable>=tables.size())
+            return -1;
+        Element table = tables.get(itable); // Index 1 corresponds to the second table
+        int rowIndex = -1; // Initialize to -1 (not found)
+        Elements rows = table.select("tr");
+        for (int i = 0; i < rows.size(); i++) {
+            Element row = rows.get(i);
+            Elements columns = row.select("td");
+            if (columns.size() > 0 && columns.first().text().contains(header)) {
+                rowIndex = i; // Update rowIndex if the word is found
+                break; // No need to continue searching
+            }        
+        }
+        return rowIndex;
+    }
+    
     private String getLocalId(String url) {
         String[] parts = url.split("/");
         int thirdPartIndex = parts.length - 3; // Index of the third part from the end
