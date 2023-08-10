@@ -47,6 +47,16 @@
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
                 z-index: 1000;
             }
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-button {
+            cursor: pointer;
+        }
+        /* End of popup window*/
         </style>
     </head>
     <body>
@@ -101,7 +111,11 @@
             <!-- BEGIN OF POPUP -->
             <button id="showPopup">test de popup</button>
             <div id="jsonPopup" class="popup">
-                <h2>Course overview</h2>
+   <div class="popup-header">
+        <h2>Course Overview</h2>
+        <span class="close-button" id="closePopup">&#10006;</span>
+    </div>                
+                
                 <table id="jsonTable">
                     <thead>
                         <tr>
