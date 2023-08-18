@@ -47,7 +47,8 @@ public class ParserCoursera {
                     String lan = o.get("language").asText();
                     if (!lan.equals("English"))
                         continue;
-                    c.id="coursera"+generateRandomHexString(8);
+                    c.local_id="coursera"+generateRandomHexString(8);
+                    c.autoSetId();
                     c.lan = "en";
                     c.title = o.get("name").asText().replace("| Coursera", "");
                     c.link = o.get("url").asText();
