@@ -14,6 +14,7 @@ import oeg.crec.model.Course;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import java.io.File;
+import java.security.SecureRandom;
 import oeg.crec.bloom.Bloom;
 import oeg.crec.model.Skill;
 import oeg.crec.store.Courses;
