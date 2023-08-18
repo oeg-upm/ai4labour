@@ -52,6 +52,9 @@ public class ParserCoursera {
                     List<String> topics = objectMapper.convertValue(o.get("topics"), new TypeReference<List<String>>() {});
                     c.contents = String.join(", ", topics);
                     c.bloom = bloomen.getBloom(c);
+                    c.institution = "Coursera";
+                    c.degree = o.get("url").asText();
+                            
 
                     res.add(c);
                 }
