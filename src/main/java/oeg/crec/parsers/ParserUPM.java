@@ -1,8 +1,6 @@
 package oeg.crec.parsers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,10 +9,8 @@ import oeg.crec.Misc;
 import oeg.crec.bloom.Bloom;
 import oeg.crec.model.Course;
 import oeg.crec.store.Courses;
-import org.apache.commons.io.FileUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -62,7 +58,6 @@ public class ParserUPM {
         }
         String sfile = Main.DATAFOLDER + "/courses/upm/courses.json";
         Courses.escribir(courses, sfile);
-
     }
 
     public static void download() {

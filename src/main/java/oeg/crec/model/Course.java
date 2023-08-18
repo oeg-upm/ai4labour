@@ -24,6 +24,7 @@ public class Course {
     public String contents="";
     public String objective="";
     public List<String> learning_outcomes = new ArrayList();
+    public List<String> skills = new ArrayList();
     public List<Float> bloom = Arrays.asList(0F,0F,0F,0F,0F);
 
 

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import oeg.crec.Main;
 import oeg.crec.model.Course;
+import oeg.crec.parsers.ParserCoursera;
 import oeg.crec.parsers.ParserUPM;
 import org.apache.commons.io.FileUtils;
 
@@ -67,6 +68,8 @@ public class Courses {
         courses.addAll(leer(Main.DATAFOLDER+"/courses/kadir/courses.json"));
         //init KADIR
         courses.addAll(leer(Main.DATAFOLDER+"/courses/upm/courses.json"));
+        //init KADIR
+        courses.addAll(leer(Main.DATAFOLDER+"/courses/coursera/courses.json"));
     }
 
     /**
