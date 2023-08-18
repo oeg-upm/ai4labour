@@ -43,6 +43,10 @@ public class ParserCoursera {
             if (rootNode.isArray()) {
                 for (JsonNode o : rootNode) {            
                     Course c = new Course();
+                    String lan = o.get("language").asText();
+                    if (!lan.equals("English"))
+                        continue;
+                    c.id="coursera"+generateRandomHexString(8);
                     c.lan = "en";
                     c.title = o.get("name").asText().replace("| Coursera", "");
                     c.link = o.get("url").asText();
@@ -108,5 +112,20 @@ public class ParserCoursera {
                 e.printStackTrace();
             }
     }
-    
+     public static String generateRandomHexString(int length) {
+        if (length <= 0) {
+            throw new IllegalArgumentException("Length must be greater than 0");
+        }
+
+        SecureRandom random = new SecureRandom();
+        byte[] bytes = new byte[length / 2];
+        random.nextBytes(bytes);
+
+        StringBuilder hexString = new StringBuilder();
+        for (byte b : bytes) {
+            hexString.append(String.format("%02X", b));
+        }
+
+        return hexString.toString();
+    }  
 }
