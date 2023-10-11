@@ -28,6 +28,7 @@ public class ParserCoursera {
     public static void main(String arg[]) {
         generatenew();
         List<Course> res = Courses.leer(Main.DATAFOLDER+"/courses/coursera/courses.json");
+        System.out.println("Leídos " + res.size() + " courses from coursera");
         for(Course c : res)
         {
         System.out.println(c.title + " "+c.link);
