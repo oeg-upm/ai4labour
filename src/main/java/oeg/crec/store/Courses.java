@@ -70,6 +70,9 @@ public class Courses {
         courses.addAll(leer(Main.DATAFOLDER+"/courses/upm/courses.json"));
         //init KADIR
         courses.addAll(leer(Main.DATAFOLDER+"/courses/coursera/courses.json"));
+        
+        System.out.println("Leídos " + courses.size() + " courses");
+
     }
 
     /**
