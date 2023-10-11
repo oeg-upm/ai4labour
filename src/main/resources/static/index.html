@@ -174,7 +174,7 @@
                 };*/
                 showPopupButton.addEventListener("click", async () => {
                     jsonTableBody.innerHTML = "";
-                    const url = 'api/course/' + courseid;
+                    const url = './api/course/' + courseid;
                     const response = await fetch(url, {method: 'GET', mode: 'no-cors', headers: {'Accept': 'application/json'}});
                     const jcourse = await response.json();                    
                     const safetitle = jcourse.title.length > 100 ? jcourse.title.substring(0, 100) : jcourse.title;
@@ -209,7 +209,7 @@
                     console.log("Searching:", searchText.trim());
                 }
                 const encodedQuery = encodeURIComponent(searchText);
-                const baseUrl = "api/course/search";
+                const baseUrl = "./api/course/search";
                 const fullUrl = `${baseUrl}?q=${encodedQuery}`;
                 const response = await fetch(fullUrl);
                 const jcourses = await response.json();
@@ -229,7 +229,7 @@
                     const cell2 = row.insertCell(1);
                     const cell3 = row.insertCell(2);
                     
-                    const link1 = 'api/course/' + result.local_id;
+                    const link1 = './api/course/' + result.local_id;
                     cell1.innerHTML = '<a href="' + result.link + '"  download="'+result.local_id+'.pdf"><img src="images/pdf20.png" width=20px></a>';
                     cell1.innerHTML += '<a href="' + link1 + '" download="'+result.local_id+'.json"><img src="images/json.png" width=20px></a>';
                     cell1.innerHTML+='<button class="icon-button" id="id'+result.local_id+'"><img src="images/details.jpg" width=20px></button>';          
