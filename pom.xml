@@ -11,7 +11,7 @@
     <groupId>oeg.crec</groupId>
     <artifactId>crec</artifactId>
     <version>1.0</version>
-    <name>crec</name>
+    <name>crec (AI4LABOUR)</name>
     <description>crec</description>
 
     <properties>

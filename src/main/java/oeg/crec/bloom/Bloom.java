@@ -54,6 +54,10 @@ public class Bloom {
         ve.init(language);
     }
     
+    /**
+     * Makes the standard Bloom analysis.
+     * @return remember understand apply analyse evaluate create
+    */
     public List<Float> getBloom(Course c)
     {
         List<Float> res = new ArrayList();

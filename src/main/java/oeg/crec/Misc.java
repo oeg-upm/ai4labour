@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package oeg.crec;
 
 import java.io.FileOutputStream;
@@ -9,14 +5,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 /**
- *
+ * Helper class with useful methods.
  * @author victor
  */
 public class Misc {
@@ -48,7 +47,9 @@ public class Misc {
             e.printStackTrace();
         }        
     }
-    
+    /**
+     * 
+     */
     private static String extractFileNameFromUrl(String url) {
         try {
             URI uri = new URI(url);
@@ -59,4 +60,25 @@ public class Misc {
             return "downloaded.pdf"; // Default filename if extraction fails
         }
     }    
+     private static final String CONFIG_FILE_PATH = "ai4labour.cfg";    
+   
+    public static String getConfig(String key) {
+        List<String> configLines = new ArrayList();        
+        try {
+            Files.lines(Paths.get(CONFIG_FILE_PATH))
+                .forEach(line -> configLines.add(line));
+        } catch (IOException e) {
+            System.err.println("Error reading config file: " + e.getMessage());
+        }
+        for (String line : configLines) {
+            if (!line.trim().startsWith("#") && line.contains("=")) {
+                String[] parts = line.split("=", 2);
+                if (parts[0].trim().equals(key)) {
+                    return parts[1].trim();
+                }
+            }
+        }
+        return null;
+    }
+    
 }
