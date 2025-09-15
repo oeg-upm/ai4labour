@@ -19,13 +19,9 @@ public class Statistics {
 
     public static void main(String[] args) {
         init();
-        Statistics.run4();
-    }
-    
-    public static void run4()
-    {
         ESCOClassifier.refine();
     }
+    
     
     public static void run3()
     {

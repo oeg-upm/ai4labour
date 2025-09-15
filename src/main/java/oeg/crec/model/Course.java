@@ -26,7 +26,7 @@ public class Course {
     public List<String> learning_outcomes = new ArrayList();
     public List<String> skills = new ArrayList();
     public List<Float> bloom = Arrays.asList(0F,0F,0F,0F,0F);
-
+    private List<Skill> esco_skills = new ArrayList();
 
     
     
@@ -73,7 +73,7 @@ public class Course {
         return false;
     }
     
-    public String getText()
+    public String calculateText()
     {
         String text = title+"\n";
         text+=String.join(" ", learning_outcomes);
@@ -96,5 +96,19 @@ public class Course {
                 return true;
         }
         return false;
+    }
+
+    /**
+     * @return the esco_skills
+     */
+    public List<Skill> getEsco_skills() {
+        return esco_skills;
+    }
+
+    /**
+     * @param esco_skills the esco_skills to set
+     */
+    public void setEsco_skills(List<Skill> esco_skills) {
+        this.esco_skills = esco_skills;
     }
 }

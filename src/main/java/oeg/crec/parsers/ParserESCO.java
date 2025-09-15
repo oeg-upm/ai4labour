@@ -23,7 +23,7 @@ public class ParserESCO {
     }
     
     
-    public static Skill getSkill(String name)
+    public static Skill getSkillByName(String name)
     {
         if (skills.isEmpty())
             skills = ParserESCO.parseSkills("data/skills/esco/ESCO Dataset classification/digitalSkillsCollection_en.csv");
@@ -34,7 +34,17 @@ public class ParserESCO {
         }
         return null;
     }
-
+    public static Skill getSkillById(String id)
+    {
+        if (skills.isEmpty())
+            skills = ParserESCO.parseSkills("data/skills/esco/ESCO Dataset classification/digitalSkillsCollection_en.csv");
+        for(Skill skill : skills)
+        {
+            if (skill.id.equals(id))
+                return skill;
+        }
+        return null;
+    }
     public static List<Skill> parseSkills(String filePath) {
         List<Skill> skills = new ArrayList<>();
         try ( BufferedReader br = new BufferedReader(new FileReader(filePath))) {

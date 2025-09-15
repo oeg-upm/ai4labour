@@ -64,13 +64,19 @@ public class Courses {
         if (!courses.isEmpty()) {
             return;
         }
-        //init UPM
+        //init KADIR
+//        courses.addAll(leer(Main.DATAFOLDER+"/courses/courses.json"));            //17000 cursos
+
+        courses.addAll(leer(Main.DATAFOLDER+"/courses/upm/courses.json"));          //solo 200 cursos
+      
+/*        //init KADIR
         courses.addAll(leer(Main.DATAFOLDER+"/courses/kadir/courses.json"));
-        //init KADIR
+        //init UPM
         courses.addAll(leer(Main.DATAFOLDER+"/courses/upm/courses.json"));
-        //init KADIR
+        //init COURSERA
         courses.addAll(leer(Main.DATAFOLDER+"/courses/coursera/courses.json"));
-        
+*/
+
         System.out.println("Leídos " + courses.size() + " courses");
 
     }

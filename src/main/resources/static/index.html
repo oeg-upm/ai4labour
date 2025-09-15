@@ -18,7 +18,7 @@
             }
             .table {
                 width: 100%;
-                max-width: 800px; /* Limit the table width for responsiveness */
+                max-width: 900px; /* Limit the table width for responsiveness */
                 margin-top: 20px;
                 font-size: 80%; /* Adjust the font size as needed */
             }
@@ -73,6 +73,21 @@
       font: 10px sans-serif;
      /* text-anchor: end;*/
     }
+    
+.esco-chip {
+  display: inline-block;
+  padding: 4px 8px;
+  margin: 3px;
+  border-radius: 12px;
+  background: #f0f0f0;
+  text-decoration: none;
+  color: #222;
+  font-size: 0.9em;
+  border: 1px solid #ddd;
+}
+.esco-chip:hover {
+  background: #e6e6e6;
+}    
         /* End of popup window*/
         </style>
     </head>
@@ -93,8 +108,8 @@
                     <tr>
                         <th scope="col" width="10%">Actions</th>
                         <th scope="col" width="40%">Result</th>
-                        <th scope="col" width="25%">Bloom</th>
-                        <th scope="col" width="25%">Skills</th>
+                        <th scope="col" width="20%">Bloom</th>
+                        <th scope="col" width="30%">Skills</th>
                     </tr>
                 </thead>
                 <tbody id="idtbody">
@@ -123,7 +138,7 @@
                             <img src="/images/eu.jpg" style="float:right;padding-left:5px;" width="40"/>
                             <a href="https://ai4labour.com/"><img src="/images/ai4labour.jpg" style="float:right;padding-left:5px;" width="40"/></a>
 
-                            <p style="text-align: right; ">AI4LABOUR v32. This project has received funding from the European Union's Horizon 2020 
+                            <p style="text-align: right; ">AI4LABOUR v33. This project has received funding from the European Union's Horizon 2020 
                                 research and innovation programme under grant agreement No 101007961: AI4LABOUR.</p> 
                         </td>
                     </tr>
@@ -227,6 +242,7 @@
                     const cell1 = row.insertCell(0);
                     const cell2 = row.insertCell(1);
                     const cell3 = row.insertCell(2);
+                    const cell4 = row.insertCell(3); //skills
                     
                     const link1 = './api/course/' + result.local_id;
                     cell1.innerHTML = '<a href="' + result.link + '"  download="'+result.local_id+'.pdf"><img src="/images/pdf20.png" width=20px></a>';
@@ -255,10 +271,27 @@
                     bloom+='</svg>'      
                     cell3.innerHTML = bloom;
                     
+                    cell4.innerHTML = (result && Array.isArray(result.esco_skills) ? result.esco_skills
+                      .map(skill => {
+                        const url  = escapeHtml(skill.id || '');
+                        const name = escapeHtml(skill.name || url);
+                        return `<a class="esco-chip" href="${url}" target="_blank" rel="noopener noreferrer">${name}</a>`;
+                      })
+                      .join(' ') : '&nbsp;');
                     
                 });
                 table.style.display = results.length === 0 ? "none" : "table";
             }
+            
+            
+          function escapeHtml(str) {
+            return String(str === undefined || str === null ? '' : str)
+              .replace(/&/g, '&amp;')
+              .replace(/</g, '&lt;')
+              .replace(/>/g, '&gt;')
+              .replace(/"/g, '&quot;')
+              .replace(/'/g, '&#39;');
+          }            
         </script>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
