@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * This class is the entry point for the Web application. 
  * It statically assumes determined folders. 
  * Please change the folder to the one of interest for you.
+ * @author Victor Rodríguez Doncel 
  */
 
 @SpringBootApplication
