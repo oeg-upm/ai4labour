@@ -39,7 +39,7 @@ public class DeepSeek {
         String sistema = "Eres un clasificador que debe atribuir cero o más skills al texto que describe un curso.";
         
         String pregunta = "Eres un clasificador que debe atribuir cero o más skills al texto que describe un curso. Aquí está la descripción del curso: '" + curso + "'.\n Y aquí está la lista de skills, separada por comas: '\n" + skills +"\n'";
-        pregunta+="Por favor, devuelve **solo las skills que se enseñan en este curso**, como lista separada por comas. Utiliza un umbral muy alto, no quiero muchas skills. No añadas nada más.";
+        pregunta+="Por favor, devuelve **solo las skills que se enseñan en este curso**, como lista separada por comas. A lo sumo, quiero 3 skills. No añadas nada más.";
   //      System.out.println("Using DeepSeek!");
   
         pregunta = pregunta.replace("\\", "\\\\") // Escape backslashes

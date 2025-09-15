@@ -21,6 +21,19 @@ public class ParserESCO {
             System.out.println(skill.getName());
         }
     }
+    
+    
+    public static Skill getSkill(String name)
+    {
+        if (skills.isEmpty())
+            skills = ParserESCO.parseSkills("data/skills/esco/ESCO Dataset classification/digitalSkillsCollection_en.csv");
+        for(Skill skill : skills)
+        {
+            if (skill.name.equals(name))
+                return skill;
+        }
+        return null;
+    }
 
     public static List<Skill> parseSkills(String filePath) {
         List<Skill> skills = new ArrayList<>();

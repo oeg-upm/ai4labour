@@ -72,6 +72,19 @@ public class Course {
             return true;
         return false;
     }
+    
+    public String getText()
+    {
+        String text = title+"\n";
+        text+=String.join(" ", learning_outcomes);
+        text += "\n"+objective+"\n";
+        text = text.replace("\\", "\\\\") // Escape backslashes
+                .replace("\"", "\\\"") // Escape double quotes
+                .replace("\n", " ") // Replace newlines with spaces
+                .replace("\r", " ");   // Handle carriage returns
+        return text;
+    }
+    
 
     public boolean hasLO(String value) {
         for(String lo : learning_outcomes)
